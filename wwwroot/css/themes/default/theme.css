@@ -1,0 +1,66 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: #bbbaaacc; /* #c5ae68; */
+    color: white;
+    margin-bottom: 60px;
+}
+
+/* Change primary color */
+    : root {
+    --bs-primary: #4a90e2; /* Replace with your desired color */
+    --bs-secondary: #f39c12; /* Secondary color */
+    --bs-success: #28a745; /* Success color */
+    --bs-info: #17a2b8; /* Info color */
+    --bs-warning: #ffc107; /* Warning color */
+    --bs-danger: #dc3545; /* Danger color */
+    --bs-light: #f8f9fa; /* Light background */
+    --bs-dark: #343a40; /* Dark text */
+}
+
+/* Custom navbar color */
+.navbar {
+    background-color: var(--bs-primary) !important;
+}
+
+.nav-link, .navbar-brand {
+    color: #ffffff !important;
+}
+
+    .nav-link:hover {
+        color: #f8f9fa !important;
+    }
+
+/* Custom button styles */
+.btn-primary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+}
+
+    .btn-primary:hover {
+        background-color: #357ABD !important; /* Darken the primary color */
+        border-color: #357ABD !important;
+    }
+
+/* Change the table header background */
+.table thead {
+    background-color: var(--bs-primary);
+    color: #ffffff;
+}
