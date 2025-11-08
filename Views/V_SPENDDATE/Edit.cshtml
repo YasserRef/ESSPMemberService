@@ -1,0 +1,89 @@
+﻿@model ESSPMemberService.V_SPENDDATE
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>V_SPENDDATE</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="F_MEMBER" />
+            <input type="hidden" asp-for="F_CODE" />
+            <div class="form-group">
+                <label asp-for="F_VALUE" class="control-label"></label>
+                <input asp-for="F_VALUE" class="form-control" />
+                <span asp-validation-for="F_VALUE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_PERSON" class="control-label"></label>
+                <input asp-for="F_PERSON" class="form-control" />
+                <span asp-validation-for="F_PERSON" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_ACCOUNTNO" class="control-label"></label>
+                <input asp-for="F_ACCOUNTNO" class="form-control" />
+                <span asp-validation-for="F_ACCOUNTNO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GIRO_NO" class="control-label"></label>
+                <input asp-for="GIRO_NO" class="form-control" />
+                <span asp-validation-for="GIRO_NO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="M_BANK" class="control-label"></label>
+                <input asp-for="M_BANK" class="form-control" />
+                <span asp-validation-for="M_BANK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="S_BANK" class="control-label"></label>
+                <input asp-for="S_BANK" class="form-control" />
+                <span asp-validation-for="S_BANK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_SPENDWAY" class="control-label"></label>
+                <input asp-for="F_SPENDWAY" class="form-control" />
+                <span asp-validation-for="F_SPENDWAY" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SPENDWAY" class="control-label"></label>
+                <input asp-for="SPENDWAY" class="form-control" />
+                <span asp-validation-for="SPENDWAY" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MEM_NAME" class="control-label"></label>
+                <input asp-for="MEM_NAME" class="form-control" />
+                <span asp-validation-for="MEM_NAME" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_SPENDATE" class="control-label"></label>
+                <input asp-for="F_SPENDATE" class="form-control" />
+                <span asp-validation-for="F_SPENDATE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_SPENDATE_OUT" class="control-label"></label>
+                <input asp-for="F_SPENDATE_OUT" class="form-control" />
+                <span asp-validation-for="F_SPENDATE_OUT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_DOFA" class="control-label"></label>
+                <input asp-for="F_DOFA" class="form-control" />
+                <span asp-validation-for="F_DOFA" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="F_YEAR" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

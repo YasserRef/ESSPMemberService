@@ -1,0 +1,263 @@
+﻿@{
+    var memIdString = Context.Session.GetString("MemID");
+    int memId = string.IsNullOrEmpty(memIdString) ? 0 : Convert.ToInt32(memIdString);
+
+    var userIdString = Context.Session.GetString("UserID");
+    int userId = string.IsNullOrEmpty(userIdString) ? 0 : Convert.ToInt32(userIdString);
+}
+
+@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.BodyTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.HeadTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link id="Link1" rel="icon" href="ESSP.ico" />
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>@ViewData["Title"] - نقابة العلميين</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Lato:wght@100;300;400;700;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS -->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <!-- Main CSS -->
+    <link href="~/assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="header sticky-top">
+        <div class="topbar d-flex align-items-center light-background">
+            <div class="container d-flex justify-content-center justify-content-md-between">
+                <div class="contact-info d-flex align-items-center">
+                    <i class="bi bi-person d-flex align-items-center">
+                        <partial name="_LoginPartial" />
+                    </i>
+                    -
+                    <i class="d-flex align-items-center ms-4"><span id="datetime"></span></i>
+                </div>
+                <div class="social-links d-none d-md-flex align-items-center">
+                    <a href="https://wa.me/201099378880" class="twitter"><i class="bi bi-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/EsspEgypt/about/?_rdr" class="facebook"><i class="bi bi-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white custom-navbar shadow-sm" dir="rtl">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/assets/img/logo2.png" alt="Logo" height="100">
+                    <span style="font-weight:bold;">نقابة المهن العلمية</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">الرئيسية</a></li>
+                      
+
+                         <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> النشاط</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" asp-controller="ResortsNotReserved" asp-action="Index">المصايف</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="TRAINING_DESCRIPTION" asp-action="Index">التدريب</a></li>
+                            </ul>
+                         </li>
+
+                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">  المستندات المطلوبة</a>
+                            <ul class="dropdown-menu text-end">
+                                <li><a class="dropdown-item" asp-controller="Services" asp-action="Eshtark">اشتراك جديد</a></li>
+                                <li><a class="dropdown-item" asp-controller="Services" asp-action="EstsharyDoc">شهاده الاستشارى</a></li>
+                                <li><a class="dropdown-item" asp-controller="Services" asp-action="SpendDateSelfDoc">معاش الاعضاء</a></li>
+                                <li><a class="dropdown-item" asp-controller="Services" asp-action="SpendDateDoc">معاشات ورثه</a></li>
+                                <li><a class="dropdown-item" asp-controller="Services" asp-action="MasarifGanazaDoc">مصاريف الجنازة</a></li>
+                            </ul>
+                        </li>
+
+                        @if (memId > 0)
+                        {
+                           
+                          <li class="nav-item dropdown">
+                                <!-- 1. The main link becomes the dropdown toggle -->
+                                <a class="nav-link dropdown-toggle" href="#"  id="financialServicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    خدمات النقابة الالكترونية
+                                </a>
+    
+                                <!-- 2. All links are placed inside a single dropdown-menu UL -->
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="financialServicesDropdown">
+        
+                                    <!-- Group 1: Original Standalone Link -->
+                                    <li><a class="dropdown-item" asp-controller="V_T_DIFFMEMBER" asp-action="Index">متاخرات الاعضاء</a></li>
+        
+                                    <!-- Divider for visual separation -->
+                                    <li><hr class="dropdown-divider"></li>
+        
+                                    <!-- Group 2: Pensions (معاشات) -->
+                                    <li><h6 class="dropdown-header">المعاشات</h6></li>
+                                    <li><a class="dropdown-item" asp-controller="V_SPENDDATE" asp-action="IndexSelf">معاشات احياء</a></li>
+                                    <li><a class="dropdown-item" asp-controller="V_SPENDDATE" asp-action="Index">معاشات ورثه</a></li>
+        
+                                    <!-- Divider for visual separation -->
+                                    <li><hr class="dropdown-divider"></li>
+        
+                                    <!-- Group 3: Complaints (الشكاوى) -->
+                                    <li><h6 class="dropdown-header">خدمات الشكاوى</h6></li>
+                                    <li><a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="Create">تسجيل شكوى</a></li>
+                                    <li><a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="Index">عرض الشكاوى</a></li>
+                                </ul>
+                            </li>
+
+                        }
+                        else if (userId > 0)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">الشكاوى والطلبات</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="CreateRequest">تسجيل شكوى</a></li>
+                                    <li><a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="IndexAdmin">عرض الشكاوى</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown">التقارير</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="PAYMENT_BANK" asp-action="PaymentReport">تسجيل متاخرات الاعضاء</a></li>
+                                    <li><a class="dropdown-item" asp-controller="PAYMENT_BANK" asp-action="SendMemCardReport">كارنية الاعضاء</a></li>
+                                </ul>
+                            </li>
+                        }
+
+                        <li class="nav-item"><a class="nav-link" asp-controller="BRANCH_DESCRIPTION" asp-action="Index">الفروع</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">تسجيل الدخول</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="V_MEMBER_INFO" asp-action="Index">الدخول </a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" asp-controller="V_MEMBER_INFO" asp-action="Logout">خروج</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Body Content -->
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white pt-5 pb-4" style="direction: rtl;">
+        <div class="container text-md-start">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <a class="navbar-brand" href="#">
+                        <img src="~/assets/img/logo2.png" alt="Logo" height="100">
+                        <span style="font-weight:bold;">نقابة المهن العلمية</span>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="text-warning mb-3">روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Home" asp-action="Index" class="footer-link">الرئيسية</a></li>
+                        <li><a asp-controller="BRANCH_DESCRIPTION" asp-action="Index" class="footer-link">الفروع</a></li>
+                        <li><a asp-controller="ResortsNotReserved" asp-action="Index" class="footer-link">المصاريف</a></li>
+                        <li><a asp-controller="TRAINING_DESCRIPTION" asp-action="Index" class="footer-link">التدريب</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="text-warning mb-3">تواصل معنا</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone-alt me-2"></i>0225913522</li>
+                        <li><i class="fas fa-phone-alt me-2"></i>0225901012</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>القاهرة، مصر</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="text-warning mb-3">تابعنا</h5>
+                    <div class="d-flex gap-3">
+                        <a href="https://www.facebook.com/EsspEgypt/about/?_rdr" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/201099378880" class="social-icon"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center text-secondary small">
+                &copy; 2024 - نقابة العلميين - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Update datetime
+        function updateDateTime() {
+            const now = new Date();
+            const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+            const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+            const dayName = days[now.getDay()];
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'م' : 'ص';
+            hours = hours % 12 || 12;
+            document.getElementById('datetime').textContent = `${dayName} ${day} ${month} ${year} - ${hours}:${minutes}:${seconds} ${ampm}`;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+
+    <script>
+        function closeBanner(bannerId) {
+            const banner = document.getElementById(bannerId);
+            banner.classList.add('hidden');
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 300);
+        }
+    </script>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.news-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

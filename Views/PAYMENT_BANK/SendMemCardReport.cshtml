@@ -1,0 +1,180 @@
+﻿@model ESSPMemberService.Models.Tables.PaymentMainWithDetailsDto
+
+@{
+    ViewData["Title"] = "SendMemCardReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    @@media print {
+        body {
+            background-color: white !important;
+        }
+
+        /* Hide everything on the page when printing */
+        body * {
+            visibility: hidden;
+            overflow: hidden; /* This might be needed to prevent some scrolling issues */
+        }
+
+        /* Make the report container visible */
+        #report-container, #report-container * {
+            visibility: visible;
+        }
+
+        #report-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        /* Adjust table for printing */
+        #report-container table {
+            width: 100%;
+            page-break-inside: auto;
+        }
+
+        #report-container tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+        
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
+
+<h1>تقرير الدفع كارنيهات العضو</h1>
+
+<!-- Corrected Form Layout -->
+<form method="get" asp-action="SendMemCardReport" class="mb-4 no-print">
+    <div class="row align-items-end g-4">
+        <!-- Start + End Date Group -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="startDate">من تاريخ</label>
+                <input type="date" class="form-control" id="startDate" name="startDate" value="@(Context.Request.Query["startDate"])" />
+            </div>
+            <div class="form-group mt-2">
+                <label for="endDate">إلى تاريخ</label>
+                <input type="date" class="form-control" id="endDate" name="endDate" value="@(Context.Request.Query["endDate"])" />
+            </div>
+        </div>
+        
+        <!-- Member Code -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="memCode">رقم القيد</label>
+                <input type="number" class="form-control" id="memCode" name="memCode" required value="@(Context.Request.Query["memCode"])" />
+            </div>
+        </div>
+
+        <!-- Delivery Type -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="DeliveryType">طرق التوصيل</label>
+                <select class="form-control" id="DeliveryType" name="DeliveryType" asp-items="ViewBag.DeliveryTypes"></select>
+            </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="PaymentMethod">طرق الدفع</label>
+                <select class="form-control" id="PaymentMethod" name="PaymentMethod" asp-items="ViewBag.PaymentMethods"></select>
+            </div>
+        </div>
+
+        <!-- Search Button -->
+        <div class="col-12 text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4">تصفية</button>
+        </div>
+    </div>
+</form>
+
+<!-- Report Data -->
+<div id="report-container" class="space-y-4">
+    <div>
+        <h4>عرض البيانات</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">رقم القيد</dt>
+            <dd class="col-sm-10">@Model.F_MEMBER</dd>
+
+            <dt class="col-sm-2">اسم العضو</dt>
+            <dd class="col-sm-10">@Model.F_MEMBER_NAME</dd>
+
+            <dt class="col-sm-2">رقم الطلب</dt>
+            <dd class="col-sm-10">@Model.F_ORDER_NO</dd>
+
+            <dt class="col-sm-2">تاريخ الطلب</dt>
+            <dd class="col-sm-10">@Model.F_ORDER_DATE</dd>
+
+            <dt class="col-sm-2">طريقة الدفع</dt>
+            <dd class="col-sm-10">@Model.F_PAYMENT_METHOD</dd>
+
+            <dt class="col-sm-2">طريقة التوصيل</dt>
+            <dd class="col-sm-10">@Model.F_DELIVERY_METHOD</dd>
+
+            <dt class="col-sm-2">الإجمالي</dt>
+            <dd class="col-sm-10">@Model.F_TOTAL_VALUE</dd>
+        </dl>
+
+        @if (Model != null && Model.F_ID > 0)
+        {
+           <img src="@Url.Action("DisplayImage", "PAYMENT_BANK", new { id = Model.F_ID })"
+                 alt="ايصال الدفع" style="max-width: 100%; height: auto;" />
+            
+         @* <p style="font-size: 0.8rem; color: #6c757d; margin-top: 5px;">
+                Debugging URL: <strong>@Url.Action("GetPaymentImage", "PAYMENT_BANK", new { id = Model.F_ID })</strong>
+            </p> *@
+        }
+    </div>
+
+    <h5>تفاصيل الدفع</h5>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>مسلسل</th>
+                <th>شهر الدفع</th>
+                <th>القيمة</th>
+                <th>الوصف</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.PaymentDetails != null && Model.PaymentDetails.Any())
+            {
+                foreach (var detail in Model.PaymentDetails)
+                {
+                    <tr>
+                        <td>@detail.F_SER</td>
+                        <td>@detail.F_PAY_YEAR</td>
+                        <td>@detail.F_PAY_VALUE</td>
+                        <td>@detail.F_DESC_PAY</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-danger text-center">لا توجد تفاصيل متاحة</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model != null)
+{
+    <div class="text-center no-print">
+        <button type="button" class="btn btn-success" onclick="window.print()">
+            🖨 طباعة التقرير
+        </button>
+    </div>
+}
+else
+{
+    <p class="text-danger mt-3">لا توجد بيانات لعرضها.</p>
+}

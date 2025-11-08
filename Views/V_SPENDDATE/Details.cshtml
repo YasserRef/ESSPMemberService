@@ -1,0 +1,91 @@
+﻿@model ESSPMemberService.V_SPENDDATE
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>V_SPENDDATE</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_VALUE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_VALUE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_PERSON)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_PERSON)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_ACCOUNTNO)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_ACCOUNTNO)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GIRO_NO)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GIRO_NO)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.M_BANK)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.M_BANK)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.S_BANK)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.S_BANK)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_SPENDWAY)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_SPENDWAY)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SPENDWAY)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SPENDWAY)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MEM_NAME)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MEM_NAME)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_SPENDATE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_SPENDATE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_SPENDATE_OUT)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_SPENDATE_OUT)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_DOFA)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_DOFA)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

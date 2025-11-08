@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ESSPMemberService.V_MEMBER_INFO>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.F_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_BRANCHNO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BRANCH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BRANCHGOV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_LATEPAY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_PAYEAR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_MAINWRKSIDE)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_BRANCHNO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BRANCH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BRANCHGOV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_LATEPAY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_PAYEAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MAINWRKSIDE)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.F_CODE">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.F_CODE">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.F_CODE">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

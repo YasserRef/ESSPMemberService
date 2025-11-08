@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ESSPMemberService.V_SPENDDATE>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+
+<h1>معاشات</h1>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.F_VALUE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_PERSON)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_ACCOUNTNO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GIRO_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.M_BANK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.S_BANK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_SPENDWAY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SPENDWAY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MEM_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_SPENDATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_SPENDATE_OUT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_DOFA)
+            </th>
+           @*  <th></th> *@
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_VALUE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_PERSON)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_ACCOUNTNO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GIRO_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.M_BANK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S_BANK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_SPENDWAY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SPENDWAY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MEM_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_SPENDATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_SPENDATE_OUT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_DOFA)
+            </td>
+            @* <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>
+</div>

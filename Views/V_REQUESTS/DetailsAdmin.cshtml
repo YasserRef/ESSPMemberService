@@ -1,0 +1,132 @@
+﻿@model ESSPMemberService.V_REQUESTS
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";   
+}
+
+<style>
+    dd{
+        margin-inline-start: 0px !important;
+    }
+</style>
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <h2 class="text-center">تفاصيل</h2>
+<div id="printArea">
+    <h4>الطلب او الشكوى</h4>
+    <hr />
+    <p id="printDateTime" style="margin-top: 10px; font-weight: bold;"></p>
+    <dl class="row">
+        <dt class = "col-md-3 ">
+            @Html.DisplayNameFor(model => model.F_MEM_ID)
+        </dt>
+        <dd class = "col-md-3">
+            @Html.DisplayFor(model => model.F_MEM_ID)
+        </dd>
+
+                    <dt class="col-md-3">
+            @Html.DisplayNameFor(model => model.F_MEM_NAME)
+        </dt>
+                    <dd class="col-md-3">
+            @Html.DisplayFor(model => model.F_MEM_NAME)
+        </dd>
+                    <dt class="col-md-3">
+            @Html.DisplayNameFor(model => model.F_REQUEST_ID)
+        </dt>
+                    <dd class="col-md-3">
+            @Html.DisplayFor(model => model.F_REQUEST_ID)
+        </dd>
+                    <dt class="col-md-3">
+            @Html.DisplayNameFor(model => model.F_REQUEST_DATE)
+        </dt>
+                    <dd class="col-md-3">
+            @Html.DisplayFor(model => model.F_REQUEST_DATE)
+        </dd>
+                    <dt class="col-md-3">
+            @Html.DisplayNameFor(model => model.F_MOBILE_NO)
+        </dt>
+                    <dd class="col-md-3">
+            @Html.DisplayFor(model => model.F_MOBILE_NO)
+        </dd>
+        <dt class="col-md-3">
+            @Html.DisplayNameFor(model => model.F_NATIONAL_ID)
+        </dt>
+        <dd class="col-md-3">
+            @Html.DisplayFor(model => model.F_NATIONAL_ID)
+        </dd>
+        <dt class="col-md-3">
+            @Html.DisplayNameFor(model => model.F_TITTLE)
+        </dt>
+        <dd class="col-md-3">
+            @Html.DisplayFor(model => model.F_TITTLE)
+        </dd>
+        <dt class="col-md-3">
+            @Html.DisplayNameFor(model => model.F_NOTES)
+        </dt>
+        <dd class="col-md-3">
+            @Html.DisplayFor(model => model.F_NOTES)
+        </dd>
+    </dl>
+</div>
+
+<div class="text-center">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="RequestId" value="@Model.F_ID" />
+    <button onclick="printAndUpdate()" class="btn btn-primary">🖨️ طباعة</button>
+                <a asp-action="IndexAdmin">الرجوع</a>
+</div>
+
+<div>   
+   @*  <a asp-action="Edit" asp-route-id="@Model?.F_ID">Edit</a> | *@
+   
+</div>
+
+@section Scripts {
+    <script>
+        function printAndUpdate() {
+            const requestId = $('#RequestId').val();
+            const token = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                url: '@Url.Action("UpdatePrintDate", "V_REQUESTS")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: requestId }),
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                success: function (data) {
+                    if (data.success) {
+                        const now = new Date();
+                        const formatted = now.toLocaleString('ar-EG');
+                        $('#printDateTime').text('تاريخ الطباعة: ' + formatted);
+
+                        const printContents = document.getElementById('printArea').innerHTML;
+                        const originalContents = document.body.innerHTML;
+
+                        document.body.innerHTML = printContents;
+                        window.print();
+                        document.body.innerHTML = originalContents;
+                        location.reload();
+                    } else {
+                        alert("فشل في تحديث تاريخ الطباعة.");
+                        console.error(data.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("خطأ في الاتصال بالخادم.");
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    </script>
+}
+
+
+
+
+</div>
+</div>
+</section>

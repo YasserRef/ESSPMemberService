@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ESSPMemberService.ResortsNotReserved>
+
+@{
+    ViewData["Title"] = "حجز المصايف";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <h2 class="text-center">حجز المصايف</h2>
+
+
+<form method="get" class="mb-3">
+    <div class="row">
+        <!-- DropDown: Holiday Name -->
+        <div class="form-group col-md-3">
+            <label>اسم المصيف</label>
+            @Html.DropDownList("holidayName",
+            ViewBag.HolidayNameList as IEnumerable<SelectListItem>,
+                        "-- اختر مصيف --",
+                        new { @class = "form-control", onchange = "this.form.submit()" })
+        </div>
+
+        <!-- DropDown: Week No -->
+        <div class="form-group col-md-3">
+            <label>رقم الفوج</label>
+            @Html.DropDownList("weekNo",
+                        ViewBag.WeekNoList as IEnumerable<SelectListItem>,
+                        "-- اختر رقم الفوج --",
+                        new { @class = "form-control", onchange = "this.form.submit()" })
+        </div>
+
+        <!-- DropDown: Flat Description -->
+        <div class="form-group col-md-3">
+            <label>وصف الوحدة</label>
+            @Html.DropDownList("flatDesc",
+                        ViewBag.FlatDescList as IEnumerable<SelectListItem>,
+                        "-- اختر الوحدة --",
+                        new { @class = "form-control", onchange = "this.form.submit()" })
+        </div>
+
+        <div class="form-group col-md-2 align-self-end">
+            <button type="submit" class="btn btn-primary">بحث</button>
+        </div>
+    </div>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().HOLDAY_NAME)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_FLAT_DESC)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_WEEKCOST)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_INSURCOST)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_FROM)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_TO)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td hidden>@item.F_HCODE</td>
+                    <td hidden>@item.F_WEEK</td>
+                    <td hidden>@item.F_FCODE</td>
+                    <td>@item.HOLDAY_NAME</td>
+                    <td>@item.F_FLAT_DESC</td>
+                    <td>@String.Format("{0:C}", item.F_WEEKCOST)</td>
+                    <td>@item.F_INSURCOST</td>
+                    <td>@item.F_FROM</td>
+                    <td>@item.F_TO</td>
+                    <td>
+                        @Html.ActionLink("تفاصيل", "Details", new { holidayId = item.F_HCODE, weekNo = item.F_WEEK, flatId = item.F_FCODE }, new { @class = "btn btn-sm btn-info" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">لا توجد نتائج للعرض</p>
+}
+
+                    </div>
+                    </div>
+                    </section>
+                    </div>

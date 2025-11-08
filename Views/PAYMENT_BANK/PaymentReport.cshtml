@@ -1,0 +1,146 @@
+﻿@model IEnumerable<ESSPMemberService.Models.Tables.PaymentMainDto>
+
+@{
+    ViewData["Title"] = "PaymentReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <style>
+        @@media print {
+            body {
+                background-color: white;
+            }
+        }
+    </style>
+}
+
+<h1>تقرير الدفع الالكترونى</h1>
+
+<form method="get" asp-action="PaymentReport">
+    <div class="form-row">
+        <!-- Start + End Date in the same column -->
+        <div class="form-group col-md-3">
+            <div class="row mb-2">
+                <label for="startDate" class="col-sm-4 col-form-label text-right">من تاريخ</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" id="startDate" name="startDate"
+                           value="@(Context.Request.Query["startDate"])" />
+                </div>
+            
+                <label for="endDate" class="col-sm-4 col-form-label text-right">إلى تاريخ</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" id="endDate" name="endDate"
+                           value="@(Context.Request.Query["endDate"])" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Types -->
+        <div class="form-group col-md-3 row">
+            <label for="paymentTypes" class="col-sm-4 col-form-label text-right">طرق التوصيل</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="DeliveryType" name="DeliveryType" asp-items="ViewBag.DeliveryTypes"></select>
+            </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="form-group col-md-3 row">
+            <label for="PaymentMethods" class="col-sm-4 col-form-label text-right">طرق الدفع</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="PaymentMethod" name="PaymentMethod" asp-items="ViewBag.PaymentMethods"></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-2">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary px-4">تصفية</button>
+        </div>
+    </div>
+</form>
+
+
+<!-- The container holding the content you want to print -->
+
+<div id="report-container" class="space-y-4"> 
+    <!-- The table that will be printed -->
+
+    <table id="report-table" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().F_ORDER_NO)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_ORDER_YEAR)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_ORDER_DATE)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_PAYMENT_METHOD)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_MEMBER)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_MEMBER_NAME)</th>
+                <th>@Html.DisplayNameFor(model => model.First().F_TOTAL_VALUE)</th>
+                <th>صوره الإيصال </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.F_ORDER_NO</td>
+                    <td>@item.F_ORDER_YEAR</td>
+                    <td>@item.F_ORDER_DATE</td>
+                    <td>@item.F_PAYMENT_METHOD</td>
+                    <td>@item.F_MEMBER</td>
+                    <td>@item.F_MEMBER_NAME</td>
+                    <td>@item.F_TOTAL_VALUE</td>
+                    <td><a asp-action="Details" asp-route-id="@item.F_ID">عرض</a></td>
+                    
+                    <td>
+                      
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+   
+</div>
+<!-- End of report-container -->
+@if (Model != null && Model.Any())
+{
+    <button type="button" class="btn btn-success" onclick="printReport()">🖨 طباعة التقرير</button>
+}
+else
+{
+    <p class="text-danger mt-3">لا توجد بيانات لعرضها ضمن الفترة المحددة.</p>
+}
+
+<script>
+   
+    function printReport() {
+        // Get the HTML content of the element you want to print using its ID.
+        const contentToPrint = document.getElementById('report-container');
+
+        // Check if the element exists.
+        if (!contentToPrint) {
+            console.error("The element with ID 'report-container' was not found.");
+            // You could display a user-friendly message here, e.g., using a custom modal.
+            return;
+        }
+
+        // Open a new browser window. The arguments define its size and position.
+        const printWindow = window.open('', '_blank', 'height=600,width=800');
+
+        // Write the basic HTML structure for the new window.
+        // This ensures the printed document has a proper head, title, and CSS.
+        printWindow.document.write('<!DOCTYPE html><html dir="rtl"><head><title>تقرير الدفع</title>');
+        // Link to a CSS file for styling in the printed document.
+        // You can use the same CSS framework or custom print styles.
+        printWindow.document.write('<link rel="stylesheet" href="https://cdn.tailwindcss.com" />');
+        printWindow.document.write('</head><body>');
+
+        // Write the HTML content of the specific element to the new window.
+        // Using .outerHTML gets the element itself and its contents.
+        printWindow.document.write(contentToPrint.outerHTML);
+
+        // Close the HTML document. This is crucial for the content to be rendered correctly.
+        printWindow.document.close();
+
+        // Trigger the print dialog for the new window.
+        printWindow.print();    
+    }
+</script>

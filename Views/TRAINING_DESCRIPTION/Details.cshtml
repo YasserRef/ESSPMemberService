@@ -1,0 +1,75 @@
+﻿@model ESSPMemberService.V_T_TRAINING_DESCRIPTION
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+
+            <h2 class="text-center">التفاصيل</h2>
+
+
+            <div>
+    <h4>التدريب</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_TRANING_DES)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_TRANING_DES)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_TRAINER_NAME)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_TRAINER_NAME)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_TRAINER_PHONE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_TRAINER_PHONE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_ADDRESS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_ADDRESS)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_DATE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_DATE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_VALUE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_VALUE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_DISCOUNT)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_DISCOUNT)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_URL_PIC)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_URL_PIC)
+        </dd>
+    </dl>
+</div>
+<div>
+   @*  <a asp-action="Edit" asp-route-id="@Model?.F_CODE">Edit</a> | *@
+    <a asp-action="Index">Back to List</a>
+</div>
+</div>
+</div>
+</section>

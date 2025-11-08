@@ -1,0 +1,59 @@
+﻿@model ESSPMemberService.Models.Tables.T_PAYMENT_MAIN
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>تفاصيل الدفع</h1>
+
+<div>
+    <h4>عرض البيانات</h4>
+    <hr />
+    <dl class="row">
+       
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.F_ORDER_DATE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.F_ORDER_DATE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_TOTAL_VALUE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_TOTAL_VALUE)
+        </dd>       
+       
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_PAYMENT_METHOD_ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_PAYMENT_METHOD_ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_CARD)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_CARD)
+        </dd>       
+       
+    </dl>
+</div>
+<!-- Display Image  -->
+<div class="form-group">
+
+    @if (Model != null && Model.F_ID > 0)
+    {
+        <img src="@Url.Action("DisplayImage", "PAYMENT_BANK", new { id = Model.F_ID })"
+             alt="ايصال الدفع" style="max-width: 100%; height: auto;" />
+    }   
+    else
+    {
+        <p>No image available</p>
+    }
+</div>
+
+<div>    
+    <a asp-action="Index">رجوع</a>
+</div>

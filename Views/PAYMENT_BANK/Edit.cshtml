@@ -1,0 +1,105 @@
+﻿@model ESSPMemberService.Models.Tables.T_PAYMENT
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>T_PAYMENT_MAIN</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="F_ORDER_NO" />
+            <div class="form-group">
+                <label asp-for="F_COMPANY_NO" class="control-label"></label>
+                <input asp-for="F_COMPANY_NO" class="form-control" />
+                <span asp-validation-for="F_COMPANY_NO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_ORDER_YEAR" class="control-label"></label>
+                <input asp-for="F_ORDER_YEAR" class="form-control" />
+                <span asp-validation-for="F_ORDER_YEAR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_MEMBER" class="control-label"></label>
+                <input asp-for="F_MEMBER" class="form-control" />
+                <span asp-validation-for="F_MEMBER" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_TOTAL_VALUE" class="control-label"></label>
+                <input asp-for="F_TOTAL_VALUE" class="form-control" />
+                <span asp-validation-for="F_TOTAL_VALUE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_REFERENCE_NO" class="control-label"></label>
+                <input asp-for="F_REFERENCE_NO" class="form-control" />
+                <span asp-validation-for="F_REFERENCE_NO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_PAYMENT" class="control-label"></label>
+                <input asp-for="F_PAYMENT" class="form-control" />
+                <span asp-validation-for="F_PAYMENT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_HAFZA_NO" class="control-label"></label>
+                <input asp-for="F_HAFZA_NO" class="form-control" />
+                <span asp-validation-for="F_HAFZA_NO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_HAFZA_YEAR" class="control-label"></label>
+                <input asp-for="F_HAFZA_YEAR" class="form-control" />
+                <span asp-validation-for="F_HAFZA_YEAR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_ID" class="control-label"></label>
+                <input asp-for="F_ID" class="form-control" />
+                <span asp-validation-for="F_ID" class="text-danger"></span>
+            </div>
+           @*  <div class="form-group">
+                <label asp-for="F_BANK_NAME" class="control-label"></label>
+                <input asp-for="F_BANK_NAME" class="form-control" />
+                <span asp-validation-for="F_BANK_NAME" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="F_CARD" class="control-label"></label>
+                <input asp-for="F_CARD" class="form-control" />
+                <span asp-validation-for="F_CARD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_ORDER_DATE" class="control-label"></label>
+                <input asp-for="F_ORDER_DATE" class="form-control" />
+                <span asp-validation-for="F_ORDER_DATE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_PAY_FEES" class="control-label"></label>
+                <input asp-for="F_PAY_FEES" class="form-control" />
+                <span asp-validation-for="F_PAY_FEES" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_POST_COST" class="control-label"></label>
+                <input asp-for="F_POST_COST" class="form-control" />
+                <span asp-validation-for="F_POST_COST" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_PENALTY" class="control-label"></label>
+                <input asp-for="F_PENALTY" class="form-control" />
+                <span asp-validation-for="F_PENALTY" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

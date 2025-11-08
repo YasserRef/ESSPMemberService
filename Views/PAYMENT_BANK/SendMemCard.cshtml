@@ -1,0 +1,217 @@
+﻿@model ESSPMemberService.Models.Tables.T_PAYMENT_MAIN
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ارسال كارنيه العضو</h1>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+         <form asp-action="SaveBank" enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+             <div class="form-group">
+                <label asp-for="F_PAYMENT_TYPE_NO" class="control-label">طرق التوصيل</label>
+                <select asp-for="F_PAYMENT_TYPE_NO" class="form-control" asp-items="ViewBag.DeliveryList" id="deliveryTypes">
+                </select>
+                <span asp-validation-for="F_PAYMENT_TYPE_NO" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PaymentMemCard.F_BRANCHNO" class="control-label">المحافظة</label>
+                <select asp-for="PaymentMemCard.F_BRANCHNO" class="form-control" asp-items="ViewBag.BranchsList" id="PaymentMemCard_F_BRANCHNO">
+                </select>
+                <span asp-validation-for="PaymentMemCard.F_BRANCHNO" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PaymentMemCard.F_MEM_ADDRESS" class="control-label"></label>
+                <input asp-for="PaymentMemCard.F_MEM_ADDRESS" class="form-control" />
+                <span asp-validation-for="PaymentMemCard.F_MEM_ADDRESS" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PaymentMemCard.F_SEND_COST" class="control-label">تكلفة الإرسال</label>
+                <input asp-for="PaymentMemCard.F_SEND_COST" class="form-control" id="PaymentMemCard_F_SEND_COST" readonly />
+                <span asp-validation-for="PaymentMemCard.F_SEND_COST" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="F_PENALTY_VALUE" class="control-label">مبلغ الغرامة</label>
+                <input asp-for="F_PENALTY_VALUE" class="form-control" readonly />
+                <span asp-validation-for="F_PENALTY_VALUE" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="F_VALUE" class="control-label"></label>
+                <input asp-for="F_VALUE" class="form-control" readonly />
+                <span asp-validation-for="F_VALUE" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="F_TOTAL_VALUE" class="control-label"></label>
+                <input asp-for="F_TOTAL_VALUE" class="form-control" readonly />
+                <span asp-validation-for="F_TOTAL_VALUE" class="text-danger"></span>
+            </div>
+
+        
+
+         @*    <div class="form-group">
+                <label asp-for="F_BANK_NAME" class="control-label"></label>
+                <input asp-for="F_BANK_NAME" class="form-control" readonly />
+                <span asp-validation-for="F_BANK_NAME" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="F_PAYMENT_METHOD_ID" class="control-label">طرق الدفع</label>
+                <select asp-for="F_PAYMENT_METHOD_ID" class="form-control" asp-items="ViewBag.MethodsList" id="PaymentMethodTypes">
+                </select>
+                <span asp-validation-for="F_PAYMENT_METHOD_ID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="F_CARD" class="control-label"></label>
+                <input asp-for="F_CARD" class="form-control" />
+                <span asp-validation-for="F_CARD" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="payImage">تحميل صوره ايصال الدفع</label>
+                <input type="file" name="payImage" id="payImage" class="form-control" />
+                <span id="payImageError" class="text-danger" style="display:none;">يرجى تحميل صورة إيصال الدفع</span>
+            </div>
+
+          
+            <div class="form-group">
+                <input type="submit" value="تنفيذ" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">الرجوع للخلف</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+
+<script>
+
+       function toggleAddressField() {
+        var selectedMethod = $('#deliveryTypes').val();
+
+        if (selectedMethod == "1") {
+            // Hide the address field
+            $('[for="PaymentMemCard.F_MEM_ADDRESS"]').hide(); // Hide the label
+            $('#PaymentMemCard_F_MEM_ADDRESS').closest('.form-group').hide(); // Hide the input group
+        } else {
+            // Show the address field
+            $('[for="PaymentMemCard.F_MEM_ADDRESS"]').show();
+            $('#PaymentMemCard_F_MEM_ADDRESS').closest('.form-group').show();
+        }
+    }
+
+    $(document).ready(function () {
+        // Trigger on load
+        toggleAddressField();
+
+        // Trigger on change
+        $('#deliveryTypes').change(function () {
+            toggleAddressField();
+        });
+    });
+
+
+
+    $(document).ready(function () {
+        $("#deliveryTypes").change(function () {
+            var selectedMethod = $(this).val();
+
+            $.ajax({
+                url: '@Url.Action("GetBranchesByMethod", "PAYMENT_BANK")', // Replace 'YourController'
+                type: 'GET',
+                data: { paymentMethod: selectedMethod },
+                success: function (data) {
+                    var $branchSelect = $("#PaymentMemCard_F_BRANCHNO");
+                    $branchSelect.empty(); // Clear previous options
+
+                    $.each(data, function (index, branch) {
+                        $branchSelect.append($('<option>', {
+                            value: branch.value,
+                            text: branch.text
+                        }));
+                    });
+                }
+            });
+        });
+    });
+
+
+
+
+    $(document).ready(function () {
+        // Store the initial total value
+        var initialTotalValue = parseFloat($('#F_TOTAL_VALUE').val()) || 0;
+
+        $('#deliveryTypes, #PaymentMemCard_F_BRANCHNO').change(function () {
+            var selectedMethod = $('#deliveryTypes').val();
+            var selectedBranch = $('#PaymentMemCard_F_BRANCHNO').val();
+
+            if (selectedMethod && selectedBranch) {
+                $.ajax({
+                    url: '@Url.Action("GetSendCost", "PAYMENT_BANK")',
+                    type: 'GET',
+                    data: { methodId: selectedMethod, branchId: selectedBranch },
+                    success: function (response) {
+                        // Update F_SEND_COST
+                        var sendCost = parseFloat(response.sendCost);
+                        $('#PaymentMemCard_F_SEND_COST').val(sendCost);
+
+                        // Reset F_TOTAL_VALUE to initial value and add the new sendCost
+                        $('#F_TOTAL_VALUE').val(initialTotalValue + sendCost);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error:', error);
+                        alert('Error retrieving send cost.');
+                    }
+                });
+            }
+        });
+
+          $('form').on('submit', function (e) {
+        var payImageInput = $('#payImage')[0];
+        var file = payImageInput.files[0];
+
+        if (!file) {
+            e.preventDefault();
+            $('#payImageError').text('يرجى تحميل صورة إيصال الدفع').show();
+            return;
+        }
+
+        var allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
+        var fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (!allowedExtensions.includes(fileExtension)) {
+            e.preventDefault();
+            $('#payImageError').text('الملف يجب أن يكون صورة أو PDF').show();
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) { // 5MB limit
+            e.preventDefault();
+            $('#payImageError').text('الملف أكبر من الحجم المسموح به (5MB)').show();
+            return;
+        }
+
+        $('#payImageError').hide();
+    });
+
+    });
+</script>

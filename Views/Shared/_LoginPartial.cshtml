@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav" style="
+    padding-right: 10px;
+">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li>
+            @Html.ActionLink("مرحبا " + Context.Session.GetString("MemName") + "!", "Index", "V_MEMBER_INFO", routeValues: null, htmlAttributes: new { title = "MemInfo" })
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">مرحبا @User.Identity?.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">تسجيل خروج</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li>
+            @Html.ActionLink("مرحبا " + Context.Session.GetString("MemName") + "!", "Index", "V_MEMBER_INFO", routeValues: null, htmlAttributes: new { title = "MemInfo" })
+        </li>
+    }
+</ul>

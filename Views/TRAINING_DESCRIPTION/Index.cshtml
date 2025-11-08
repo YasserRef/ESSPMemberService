@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ESSPMemberService.V_T_TRAINING_DESCRIPTION>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<div class="container">
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <h2 class="text-center">الدورات التدريبية</h2>
+
+
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TRANING_DES)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TRAINER_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TRAINER_PHONE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_ADDRESS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_VALUE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_DISCOUNT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_URL_PIC)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TRANING_DES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TRAINER_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TRAINER_PHONE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_ADDRESS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_VALUE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_DISCOUNT)
+            </td>
+           
+             <td>
+            @*@Html.DisplayFor(modelItem => item.F_URL_PIC)*@           
+            <img src="@Html.Raw(item.F_URL_PIC)" alt="Training Location" style="width:200px; height:200px;">
+        </td>
+            <td>
+                 <a asp-action="Details" asp-route-id="@item.F_CODE">Details</a> 
+               @*  <a asp-action="Edit" asp-route-id="@item.F_CODE">Edit</a> |               
+                <a asp-action="Delete" asp-route-id="@item.F_CODE">Delete</a> *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+</div>
+</section>
+</div>

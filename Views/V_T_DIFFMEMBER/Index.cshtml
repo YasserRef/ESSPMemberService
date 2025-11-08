@@ -1,0 +1,172 @@
+﻿@model IEnumerable<ESSPMemberService.V_T_DIFFMEMBER>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var penaltyValue = Context.Session.GetString("PenaltyValue") != null ? Context.Session.GetString("PenaltyValue") : "0";
+}
+
+<h1>متاخرات اشتركات الاعضاء</h1>
+
+
+
+@if (ViewBag.PaymentMessage != null)
+{
+    <div class="alert alert-info">@ViewBag.PaymentMessage</div>
+}
+else
+{
+@if (Model.Count() == 0)
+{
+    <h3> لا توجد اشتراكات متأخرة لهذا العضو </h3>
+}
+<form asp-controller="PAYMENT_BANK" asp-action="CreateBank" method="post" onsubmit="return validateForm(event)">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.F_YEAR)
+                </th>
+                @* <th>
+                    @Html.DisplayNameFor(model => model.DATE_DIFF)
+                </th> *@
+                <th>
+                    @Html.DisplayNameFor(model => model.VALUE)
+                </th>               
+                <th>اختيار</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.F_YEAR)
+                    </td>
+                  @*   <td>
+                        @Html.DisplayFor(modelItem => item.DATE_DIFF)
+                    </td> *@
+                    <td class="value">
+                        @Html.DisplayFor(modelItem => item.VALUE)
+                    </td>                   
+                    <td>
+                        <input type="hidden" name="F_YEAR_@item.F_YEAR" value="@item.F_YEAR" />
+                        <input type="hidden" name="VALUE_@item.F_YEAR" value="@item.VALUE" />
+                        <input type="checkbox" name="selectedItems" value="@item.F_YEAR" class="value-checkbox" data-value="@item.VALUE" onchange="calculateSum()" />
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td bgcolor="#FF0000">
+                    أجمالى المبلغ
+                </td>
+                <td bgcolor="#FF0000" id="sum-value">
+                    0
+                </td>
+                <td>مبلغ الغرامة = @penaltyValue</td>
+                
+            </tr>
+        </tfoot>
+    </table>
+
+    <input type="submit" value="تنفيذ الدفع" class="btn btn-primary" />
+
+   @*  <div class="row">
+        <div class="col-md-4">
+            <p>
+                <a type="submit" asp-area="" asp-controller="PAYMENT_BANK" asp-action="CreateBank">الدفع البنكى</a>
+            </p>
+            <p>
+                <a type="submit" asp-area="" asp-controller="PAYMENT_BANK" asp-action="CreateCash">الدفع الفورى</a>
+            </p>
+        </div>
+    </div> *@
+
+    
+
+</form>
+
+<div>
+    <a asp-action="Index">الرجوع الى المبالغ</a>
+</div>
+
+}
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll('.value-checkbox');
+        const additionalCost = 0; // Set additional cost if needed
+        // const penaltyValue = parseFloat('@ViewBag.penaltyValue') || 0; // Get the penalty value from ViewBag
+        const penaltyValue = parseFloat('@penaltyValue') || 0;
+        let isLastCheckboxChecked = false;
+
+        checkboxes.forEach((checkbox, index) => {
+            if (index !== 0) {
+                checkbox.disabled = true; // Disable all except the first
+            }
+
+            checkbox.addEventListener('change', function () {
+                // Enable the next checkbox if the current one is checked
+                if (this.checked && index < checkboxes.length - 1) {
+                    checkboxes[index + 1].disabled = false;
+                } else {
+                    // Uncheck and disable subsequent checkboxes if unchecked
+                    for (let i = index + 1; i < checkboxes.length; i++) {
+                        checkboxes[i].checked = false;
+                        checkboxes[i].disabled = true;
+                    }
+                }
+
+                // Check if the last checkbox is selected
+                if (index === checkboxes.length - 1 && this.checked) {
+                    isLastCheckboxChecked = true;
+                } else if (index === checkboxes.length - 1 && !this.checked) {
+                    isLastCheckboxChecked = false;
+                }
+
+                // Recalculate the sum whenever a checkbox changes
+                calculateSum();
+            });
+        });
+
+        function calculateSum() {
+            let sum = 0;
+            document.querySelectorAll('.value-checkbox:checked').forEach((checkbox) => {
+                sum += parseFloat(checkbox.getAttribute('data-value'));
+            });
+
+            // Add the additional cost if the last checkbox is selected
+            if (isLastCheckboxChecked) {
+                sum += additionalCost;
+            }
+
+            // Add the penalty value to the sum
+            // sum += penaltyValue;
+
+            // Display the calculated sum
+            document.getElementById('sum-value').innerText = sum.toFixed(2);
+
+            return sum; // Return the sum
+        }
+
+        function validateForm(event) {
+            const sum = calculateSum(); // Get the sum value
+
+            // Check if the sum is 0
+            if (sum === 0) {
+                alert("يجب ان يكون اجمالى المبلغ اكبر من الصفر");
+                event.preventDefault(); // Prevent form submission
+                return false;
+            }
+
+            return true; // Allow form submission if sum > 0
+        }
+    });
+
+
+</script>
+

@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Change as needed
+    ViewData["Title"] = " خدمات الاعضاء";
+}
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+
+
+
+
+<div class="row">
+                <div class="col-md-4">
+                    <h2>خدمات الاعضاء</h2>
+                    <p class="lead">
+                        متابعه شكاوى الاعضاء
+                    </p>
+                    <p><a href="~/V_REQUESTS/CreateRequest" class="btn btn-primary btn-lg"> تسجيل شكوى</a></p>
+                </div>
+    <div class="col-md-4">
+        <h2> المتاخرات للعضو</h2>
+        <p>
+            من خلال هذة الخدمة يشتطيع العضو معرفة ما علية من متاخرات للاشتراك السنوى للنقابة مع تفاصيل كل سنة
+        </p>
+        <p><a class="btn btn-default" href="~/V_T_DIFFMEMBER/Index">للتفاصيل </a></p>
+    </div>
+   
+
+    <div class="col-md-4">
+        <h2> المعاشات</h2>
+        <p>
+            هذه الخدمة متاحة لافراد النقابة المتسحقين للمعاش
+            من خلال الاحياء او الورثة
+        </p>
+        <p><a class="btn btn-default" href="~/SpendDateSelf/Index"> معاشات الاحياء &raquo;</a></p>
+        <p><a class="btn btn-default" href="~/SpendDate/Index">معاشات الورثة  &raquo;</a></p>
+    </div>
+
+</div>
+
+        </div>
+        </div>
+        </section>

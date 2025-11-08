@@ -1,0 +1,61 @@
+﻿@model ESSPMemberService.V_MEMBER_INFO
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>V_MEMBER_INFO</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_NAME)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_NAME)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_BRANCHNO)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_BRANCHNO)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BRANCH)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BRANCH)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BRANCHGOV)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BRANCHGOV)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_LATEPAY)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_LATEPAY)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_PAYEAR)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_PAYEAR)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_MAINWRKSIDE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_MAINWRKSIDE)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.F_CODE">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

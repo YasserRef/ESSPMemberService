@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link id="Link1" rel="icon" href="ESSP.ico" />
+    <title>@ViewBag.Title - نقابة العلميين</title>
+    @*@Styles.Render("~/Content/bundle/css")
+        <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css" />*@
+
+   @*  @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery") *@
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/dist/css/bootstrap-rtl.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/dist/css/offcanvas.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/dist/css/navbar-fixed-top.css" rel="stylesheet">
+
+    <style type="text/css">
+        .TFtable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .TFtable td {
+                padding: 7px;
+                border: #4e95f4 1px solid;
+            }
+            /* provide some minimal visual accomodation for IE8 and below */
+            .TFtable tr {
+                background: #b8d1f3;
+            }
+                /*  Define the background color for all the ODD background rows  */
+                .TFtable tr:nth-child(odd) {
+                    background: #b8d1f3;
+                }
+                /*  Define the background color for all the EVEN background rows  */
+                .TFtable tr:nth-child(even) {
+                    background: #dae5f4;
+                }
+    </style>
+
+</head>
+
+<body dir="rtl">
+    <div class="navbar navbar-wrapper navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("النقابة الالكترونية", "Main", "MemDes", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    @* <li>@Html.ActionLink("الشاشة الرئيسية", "Main", "MemDes")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">خدمات نقابية <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("اشتراك جديد", "Eshtark", "Services")</li>
+                            <li>@Html.ActionLink("معاش الاعضاء", "SpendDateSelfDoc", "Services")</li>
+                            <li>@Html.ActionLink("معاش الورثه", "SpendDateDoc", "Services")</li>
+                            <li>@Html.ActionLink("شهاده الاستشارى ", "EstsharyDoc", "Services")</li>
+                            <li>@Html.ActionLink("مصاريف الجنازة ", "MasarifGanazaDoc", "Services")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">الدفع البنكى<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("الدفع البنكى", "Index", "PaymentBank")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">الانشطة<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("المصايف", "Index", "Resorts")</li>
+                        </ul>
+                    </li>
+
+                    <li>@Html.ActionLink("المتاخرات", "Index", "DiffMem")</li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">المعاشات <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("احياء", "Index", "SpendDateSelf")</li>
+                            <li>@Html.ActionLink("ورثة", "Index", "SpendDate")</li>
+                        </ul>
+                    </li>
+                    @*<li>@Html.ActionLink("المصايف", "Index", "Resorts")</li>
+        <li>@Html.ActionLink("دليل المظله الطبية", "Index", "MedicalGuide")</li>
+        <li>@Html.ActionLink("الدورات", "Index", "Training")</li>
+        <li>@Html.ActionLink("الرحلات", "Index", "Trips")</li>*@
+                    <li>@Html.ActionLink("الفروع", "Index", "BranchDsc")</li>
+                    @*<li>@Html.ActionLink("الموظفين", "Index", "Employers")</li>*@
+
+                </ul>
+
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    @*https://www.w3schools.com/bootstrap/bootstrap_templates.asp*@
+
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+                <p><a href="#">Link</a></p>
+                <p><a href="#">Link</a></p>
+                <p><a href="#">Link</a></p>
+            </div>
+            <div class="col-sm-8 text-right">
+                @RenderBody()
+            </div>
+            <div class="col-sm-2 sidenav">
+                <div class="well">
+                    <p> اعلان</p>
+                </div>
+                <div class="well">
+                    <p> اعلان</p>
+                </div>
+                <div class="well">
+                    <p> اعلان</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year - نقابة العلميين</p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
+
+

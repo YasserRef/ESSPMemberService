@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ESSPMemberService.Models.Tables.T_NEWS>
+
+
+<div class="container mt-4">
+    <div class="section-title text-center mb-4">
+        <h2>آخر الأخبار</h2>
+        <p>تابع أحدث الأخبار والمستجدات</p>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-6 mb-4">
+                <div class="news-card">
+                    <div class="row g-0">
+                        <div class="col-md-5 news-image-wrapper">
+                            <img src="@item.F_IMAGE_URL" width="500"
+                                 alt="@item.F_TITLE"
+                                 class="news-image"
+                                 onerror="this.src='/images/no-image.png'" />
+                        </div>
+                        <div class="col-md-7 news-content">
+                            <div>
+                                <div class="news-meta">
+
+                                    <span>
+                                        <i class="bi bi-calendar3"></i>
+                                        @{
+                                            var c = new System.Globalization.CultureInfo("ar-EG");
+                                            c.DateTimeFormat.Calendar = new System.Globalization.GregorianCalendar();
+                                        }
+                                    @item.F_CREATED_DATE?.ToString("dd MMMM yyyy", c)
+                                </span>
+
+
+
+                                    <span><i class="bi bi-person"></i> @item.F_NAME</span>
+                                </div>
+                                <h3 class="news-title">
+                                    <a asp-action="Details" asp-route-id="@item.F_ID">
+                                        @item.F_TITLE
+                                    </a>
+                                </h3>
+                                <p class="news-description">
+                                    @(item.F_CONTENT?.Length > 150
+                                                                    ? item.F_CONTENT.Substring(0, 150) + "..."
+                                                                    : item.F_CONTENT)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                }
+    
+   </div>
+
+
+
+
+
+        <div class="col-xl-12">
+            <div class="pagination-container ">
+
+                <nav aria-label="Modern pagination navigation">
+                    <ul class="pagination modern-pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span class="nav-text">→ السابق</span>
+                            </a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">4</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span class="nav-text">التالى ← </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+
+    </div>
+

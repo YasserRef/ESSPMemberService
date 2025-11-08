@@ -1,0 +1,116 @@
+﻿@model ESSPMemberService.V_RESERVATION_RESORT
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+<h1>Details</h1>
+
+<div>
+    <h4>V_RESERVATION_RESORT</h4>
+    <hr />
+    <div class="row">
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RECIEPT_YEAR)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.RECIEPT_YEAR)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RECIEPT_DATE)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.RECIEPT_DATE)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BRANCH_NO)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.BRANCH_NO)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.USER_CODE)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.USER_CODE)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_MEM)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_MEM)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HOLIDAY_CODE)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.HOLIDAY_CODE)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HOLIDAY_YEAR)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.HOLIDAY_YEAR)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FLAT_CODE)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.FLAT_CODE)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WEEK_NO)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.WEEK_NO)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FLAT_VALUE)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.FLAT_VALUE)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.INSURE_VALUE)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.INSURE_VALUE)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RECIEPT_VALUE)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.RECIEPT_VALUE)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CANCEL)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.CANCEL)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DISCOUNT)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.DISCOUNT)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_STAMP)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_STAMP)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RES_PK)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.RES_PK)
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.RECIEPT_NO">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</div>

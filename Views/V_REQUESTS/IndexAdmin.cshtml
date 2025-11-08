@@ -1,0 +1,122 @@
+﻿@model IEnumerable<ESSPMemberService.V_REQUESTS>
+
+@{
+    ViewData["Title"] = "Index Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <h2 class="text-center">الشكاوى</h2>
+            <p>
+                <a asp-action="CreateRequest" class="btn-primary">تسجيل شكوى </a>
+            </p>
+
+<form method="get" asp-action="IndexAdmin" class=" gap-4 align-items-end mb-4">
+    <div class="row">
+    <div class="form-group col-md-3">
+        <label>رقم القيد:</label>
+        <input type="text" name="memId" class="form-control" value="@Context.Request.Query["memId"]" />
+    </div>
+
+    <div class="form-group col-md-3">
+        <label>الحالة:</label>
+        <select name="status" class="form-control">
+            <option value="">-- الكل --</option>
+            <option value="Open">مفتوح</option>
+            <option value="Close">مغلق</option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-3">
+        <label>من تاريخ:</label>
+        <input type="date" name="fromDate" class="form-control" value="@Context.Request.Query["fromDate"]" />
+    </div>
+
+    <div class="form-group col-md-3">
+        <label>إلى تاريخ:</label>
+        <input type="date" name="toDate" class="form-control" value="@Context.Request.Query["toDate"]" />
+    </div>
+    <div class="text-center">
+        <br />
+                        <button type="submit" class="btn btn-primary">بحث</button>
+                    </div>
+                </div>
+</form>
+
+<P></P>
+
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.F_MEM_ID)
+            </th>          
+            <th>
+                @Html.DisplayNameFor(model => model.F_MEM_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_REQUEST_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_REQUEST_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_MOBILE_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_NATIONAL_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TITTLE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_NOTES)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MEM_ID)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MEM_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_REQUEST_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_REQUEST_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MOBILE_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_NATIONAL_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TITTLE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_NOTES)
+            </td>
+            <td>
+               @*  <a asp-action="Edit" asp-route-id="@item.F_ID">Edit</a> | *@
+                <a asp-action="DetailsAdmin" asp-route-id="@item.F_ID">تفاصيل</a>
+                    @* | <a asp-action=Update_Status asp-route-id="@item.F_ID">أغلاق</a> |
+                <a asp-action="Delete" asp-route-id="@item.F_ID">حذف</a> *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+</div>
+</section>

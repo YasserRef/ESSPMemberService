@@ -1,0 +1,120 @@
+﻿@model IEnumerable<ESSPMemberService.Models.Tables.T_PAYMENT>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>الدفع الالكترونى</h1>
+
+<p>
+    <a asp-action="Create">اضافه جديد</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.F_COMPANY_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_ORDER_YEAR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_MEMBER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TOTAL_VALUE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_REFERENCE_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_PAYMENT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_HAFZA_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_HAFZA_YEAR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_ID)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.F_BANK_NAME)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.F_CARD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_ORDER_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_PAY_FEES)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_POST_COST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_PENALTY)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_COMPANY_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_ORDER_YEAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MEMBER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TOTAL_VALUE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_REFERENCE_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_PAYMENT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_HAFZA_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_HAFZA_YEAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_ID)
+            </td>
+           @*<td>
+                @Html.DisplayFor(modelItem => item.F_BANK_NAME)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.F_CARD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_ORDER_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_PAY_FEES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_POST_COST)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_PENALTY)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.F_ORDER_NO">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.F_ORDER_NO">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.F_ORDER_NO">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

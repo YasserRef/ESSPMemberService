@@ -1,0 +1,114 @@
+﻿@model IEnumerable<ESSPMemberService.V_T_BRANCH_DESCRIPTION>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<div class="container">
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <h2 class="text-center">الفروع</h2>
+
+
+
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TITTLE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_ADDRESS)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.F_GAV_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_CENTER_ID)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.F_MOBILE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TEL1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TEL2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_FAX)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_EMAIL)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.F_LATITUDE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_LONGITUDE)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.WORK_TIME)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TITTLE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_ADDRESS)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.F_GAV_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_CENTER_ID)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MOBILE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TEL1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TEL2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_FAX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_EMAIL)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.F_LATITUDE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_LONGITUDE)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.WORK_TIME)
+            </td>
+            <td>
+               @* <a asp-action="Details" asp-route-id="@item.F_BRANCHNO">Details</a>
+               <a asp-action="Edit" asp-route-id="@item.F_BRANCHNO">Edit</a> |               
+               <a asp-action="Delete" asp-route-id="@item.F_BRANCHNO">Delete</a> *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+</div>
+</section>
+</div>

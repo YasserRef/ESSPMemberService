@@ -1,0 +1,59 @@
+﻿@model ESSPMemberService.ResortsNotReserved
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>V_RESORT_NOT_RESERVED</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="F_HCODE" />
+            <input type="hidden" asp-for="F_WEEK" />
+            <input type="hidden" asp-for="F_FCODE" />
+            <div class="form-group">
+                <label asp-for="HOLDAY_NAME" class="control-label"></label>
+                <input asp-for="HOLDAY_NAME" class="form-control" />
+                <span asp-validation-for="HOLDAY_NAME" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_FLAT_DESC" class="control-label"></label>
+                <input asp-for="F_FLAT_DESC" class="form-control" />
+                <span asp-validation-for="F_FLAT_DESC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_WEEKCOST" class="control-label"></label>
+                <input asp-for="F_WEEKCOST" class="form-control" />
+                <span asp-validation-for="F_WEEKCOST" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_INSURCOST" class="control-label"></label>
+                <input asp-for="F_INSURCOST" class="form-control" />
+                <span asp-validation-for="F_INSURCOST" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_FROM" class="control-label"></label>
+                <input asp-for="F_FROM" class="form-control" />
+                <span asp-validation-for="F_FROM" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_TO" class="control-label"></label>
+                <input asp-for="F_TO" class="form-control" />
+                <span asp-validation-for="F_TO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

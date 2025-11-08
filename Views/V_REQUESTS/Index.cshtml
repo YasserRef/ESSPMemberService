@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ESSPMemberService.V_REQUESTS>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+<div class="container">
+
+<p>
+    <a asp-action="Create">تسجيل شكوى </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.F_MEM_ID)
+            </th>          
+            <th>
+                @Html.DisplayNameFor(model => model.F_MEM_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_REQUEST_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_REQUEST_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_MOBILE_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_NATIONAL_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_TITTLE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_NOTES)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MEM_ID)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MEM_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_REQUEST_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_REQUEST_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_MOBILE_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_NATIONAL_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_TITTLE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_NOTES)
+            </td>
+            <td>
+               @*<a asp-action="Edit" asp-route-id="@item.F_ID">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.F_ID">حذف</a> |
+                *@
+                <a asp-action="Details" asp-route-id="@item.F_ID">تفاصيل</a> 
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+</div>

@@ -1,0 +1,298 @@
+﻿@model ESSPMemberService.ResortsNotReserved
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/assets/css/slider.css" rel="stylesheet" />
+<div class="container">
+
+<h1>المصايف</h1>
+
+<div>
+    <h4>تفاصيل الوحده</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+                <div class="container-fluid">
+                    <div class="slider-container">
+                <div class="row">
+        <div class = "col-sm-2 fw-bolder">
+            @Html.DisplayNameFor(model => model.HOLDAY_NAME)
+<br />
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.HOLDAY_NAME)
+        </div>
+                            <div class="col-sm-2 fw-bolder">
+                                @Html.DisplayNameFor(model => model.F_FLAT_DESC)<br />
+
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_FLAT_DESC)
+        </div>
+                            <div class="col-sm-2 fw-bolder">
+                                @Html.DisplayNameFor(model => model.F_WEEKCOST)<br />
+
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_WEEKCOST)
+        </div>
+                            <div class="col-sm-2 fw-bolder">
+                                @Html.DisplayNameFor(model => model.F_INSURCOST)<br />
+
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_INSURCOST)
+        </div>
+                            <div class="col-sm-2 fw-bolder">
+                                @Html.DisplayNameFor(model => model.F_FROM)<br />
+
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_FROM)
+        </div>
+                            <div class="col-sm-2 fw-bolder">
+                                @Html.DisplayNameFor(model => model.F_TO)<br />
+
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_TO)
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="container-fluid">
+                    <div class="slider-container">
+                        <!-- Main Carousel -->
+                        <div id="mediaCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <!-- Slide Counter -->
+                            <div class="slide-counter">
+                                <span id="currentSlide">1</span> / <span id="totalSlides">5</span>
+                            </div>
+
+                            <div class="carousel-inner">
+                                <!-- Slide 1: Image -->
+                                <div class="carousel-item active" data-type="image">
+                                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop" alt="منظر طبيعي">
+                                    <div class="title-overlay">
+                                        <h5>منظر طبيعي خلاب</h5>
+                                        <p>صورة جميلة لمنظر طبيعي رائع</p>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 2: YouTube Video -->
+                                <div class="carousel-item" data-type="video" data-video-id="jNQXAC9IVRw">
+                                    <div class="video-container">
+                                        <img src="https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg" alt="فيديو يوتيوب" class="video-thumbnail">
+
+                                        <div class="video-overlay" onclick="loadVideo('jNQXAC9IVRw', this)">
+                                            <div class="play-button">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+
+                                        <iframe class="video-iframe"
+                                                src=""
+                                                allow="autoplay; encrypted-media"
+                                                allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                    <div class="title-overlay">
+                                        <h5>فيديو من اليوتيوب</h5>
+                                        <p>أجمل المناظر الطبيعية - اضغط للتشغيل</p>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 3: Image -->
+                                <div class="carousel-item" data-type="image">
+                                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=500&fit=crop" alt="طبيعة">
+                                    <div class="title-overlay">
+                                        <h5>غروب الشمس</h5>
+                                        <p>لحظة غروب ساحرة</p>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 4: YouTube Video -->
+                                <div class="carousel-item" data-type="video" data-video-id="M7lc1UVf-VE">
+                                    <div class="video-container">
+                                        <img src="https://img.youtube.com/vi/M7lc1UVf-VE/maxresdefault.jpg" alt="فيديو يوتيوب" class="video-thumbnail">
+
+                                        <div class="video-overlay" onclick="loadVideo('M7lc1UVf-VE', this)">
+                                            <div class="play-button">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+
+                                        <iframe class="video-iframe"
+                                                src=""
+                                                allow="autoplay; encrypted-media"
+                                                allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                    <div class="title-overlay">
+                                        <h5>موسيقى هادئة</h5>
+                                        <p>موسيقى طبيعية للاسترخاء - اضغط للتشغيل</p>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 5: Image -->
+                                <div class="carousel-item" data-type="image">
+                                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=500&fit=crop" alt="غابة">
+                                    <div class="title-overlay">
+                                        <h5>طريق في الغابة</h5>
+                                        <p>طريق جميل وسط الأشجار</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Navigation Controls -->
+                            <button class="carousel-control-prev" type="button" data-bs-target="#mediaCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#mediaCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+
+                        <!-- Thumbnails -->
+                        <div class="thumbnail-container">
+                            <div class="d-flex justify-content-center flex-wrap">
+                                <div class="thumbnail-item active" data-bs-target="#mediaCarousel" data-bs-slide-to="0">
+                                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=70&fit=crop" alt="Thumbnail 1">
+                                </div>
+                                <div class="thumbnail-item" data-bs-target="#mediaCarousel" data-bs-slide-to="1">
+                                    <img src="https://img.youtube.com/vi/jNQXAC9IVRw/default.jpg" alt="Thumbnail 2">
+                                    <div class="video-indicator">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                                <div class="thumbnail-item" data-bs-target="#mediaCarousel" data-bs-slide-to="2">
+                                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=100&h=70&fit=crop" alt="Thumbnail 3">
+                                </div>
+                                <div class="thumbnail-item" data-bs-target="#mediaCarousel" data-bs-slide-to="3">
+                                    <img src="https://img.youtube.com/vi/M7lc1UVf-VE/default.jpg" alt="Thumbnail 4">
+                                    <div class="video-indicator">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                                <div class="thumbnail-item" data-bs-target="#mediaCarousel" data-bs-slide-to="4">
+                                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=100&h=70&fit=crop" alt="Thumbnail 5">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+                <script>
+                    // Variables
+                    const carousel = document.getElementById('mediaCarousel');
+                    const thumbnails = document.querySelectorAll('.thumbnail-item');
+                    const currentSlideSpan = document.getElementById('currentSlide');
+                    const totalSlidesSpan = document.getElementById('totalSlides');
+                    let carouselInstance;
+                    let isVideoPlaying = false;
+
+                    // Set total slides
+                    totalSlidesSpan.textContent = thumbnails.length;
+
+                    // Initialize carousel
+                    document.addEventListener('DOMContentLoaded', function() {
+                        carouselInstance = new bootstrap.Carousel(carousel, {
+                            interval: 5000,
+                            pause: false
+                        });
+                    });
+
+                    // Load video directly when clicked
+                    function loadVideo(videoId, overlay) {
+                        const container = overlay.closest('.video-container');
+                        const iframe = container.querySelector('.video-iframe');
+
+                        // Load video immediately with autoplay
+                        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&showinfo=0`;
+                        iframe.classList.add('active');
+
+                        // Hide overlay immediately
+                        overlay.style.display = 'none';
+
+                        isVideoPlaying = true;
+
+                        // Pause carousel immediately
+                        if (carouselInstance) {
+                            carouselInstance.pause();
+                        }
+                    }
+
+                    // Reset video view
+                    function resetVideoView(container) {
+                        const iframe = container.querySelector('.video-iframe');
+                        const overlay = container.querySelector('.video-overlay');
+
+                        if (iframe && overlay) {
+                            iframe.src = '';
+                            iframe.classList.remove('active');
+                            overlay.style.display = 'flex';
+                            isVideoPlaying = false;
+                        }
+
+                        // Resume carousel
+                        if (carouselInstance) {
+                            carouselInstance.cycle();
+                        }
+                    }
+
+                    // Handle slide change
+                    carousel.addEventListener('slide.bs.carousel', function(e) {
+                        const currentSlide = e.relatedTarget;
+                        const isVideoSlide = currentSlide.dataset.type === 'video';
+
+                        // Update counter
+                        currentSlideSpan.textContent = e.to + 1;
+
+                        // Update thumbnail active state
+                        thumbnails.forEach((thumb, index) => {
+                            thumb.classList.toggle('active', index === e.to);
+                        });
+
+                        // Reset all videos when changing slides
+                        const allVideoContainers = document.querySelectorAll('.video-container');
+                        allVideoContainers.forEach(container => {
+                            resetVideoView(container);
+                        });
+                    });
+
+                    // Handle thumbnail clicks
+                    thumbnails.forEach((thumbnail, index) => {
+                        thumbnail.addEventListener('click', function() {
+                            thumbnails.forEach(t => t.classList.remove('active'));
+                            this.classList.add('active');
+                            currentSlideSpan.textContent = index + 1;
+                        });
+                    });
+
+                    // Handle manual navigation
+                    const navButtons = document.querySelectorAll('.carousel-control-prev, .carousel-control-next');
+                    navButtons.forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            setTimeout(() => {
+                                if (carouselInstance && !isVideoPlaying) {
+                                    carouselInstance.cycle();
+                                }
+                            }, 100);
+                        });
+                    });
+                </script>
+            </div>
+    </div>
+</div>
+<div>
+   
+    <a asp-action="Index">الرجوع الى المصايف</a>
+</div>
+</div>

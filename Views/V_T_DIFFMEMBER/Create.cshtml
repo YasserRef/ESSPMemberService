@@ -1,0 +1,26 @@
+﻿@model ESSPMemberService.V_T_DIFFMEMBER
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>تنفيذ الدفع</h1>
+
+<h4>متاخرات الاعضاء</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <p>
+            <a asp-area="" asp-controller="PAYMENT_BANK" asp-action="CreateBank">الدفع البنكى</a>
+        </p>
+        <p>
+            <a asp-area="" asp-controller="PAYMENT_BANK" asp-action="CreateCash">الدفع الفورى</a>
+        </p>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">الرجوع الى المبالغ</a>
+</div>
+

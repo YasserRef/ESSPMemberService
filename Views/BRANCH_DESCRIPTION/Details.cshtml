@@ -1,0 +1,91 @@
+﻿@model ESSPMemberService.V_T_BRANCH_DESCRIPTION
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>V_T_BRANCH_DESCRIPTION</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_TITTLE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_TITTLE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_ADDRESS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_ADDRESS)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_GAV_ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_GAV_ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_CENTER_ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_CENTER_ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_MOBILE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_MOBILE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_TEL1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_TEL1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_TEL2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_TEL2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_FAX)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_FAX)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_EMAIL)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_EMAIL)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_LATITUDE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_LATITUDE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_LONGITUDE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_LONGITUDE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WORK_TIME)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WORK_TIME)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.F_BRANCHNO">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,107 @@
+﻿@model ESSPMemberService.V_RESERVATION_RESORT
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>V_RESERVATION_RESORT</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RECIEPT_NO" />
+            <div class="form-group">
+                <label asp-for="RECIEPT_YEAR" class="control-label"></label>
+                <input asp-for="RECIEPT_YEAR" class="form-control" />
+                <span asp-validation-for="RECIEPT_YEAR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RECIEPT_DATE" class="control-label"></label>
+                <input asp-for="RECIEPT_DATE" class="form-control" />
+                <span asp-validation-for="RECIEPT_DATE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BRANCH_NO" class="control-label"></label>
+                <input asp-for="BRANCH_NO" class="form-control" />
+                <span asp-validation-for="BRANCH_NO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="USER_CODE" class="control-label"></label>
+                <input asp-for="USER_CODE" class="form-control" />
+                <span asp-validation-for="USER_CODE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_MEM" class="control-label"></label>
+                <input asp-for="F_MEM" class="form-control" />
+                <span asp-validation-for="F_MEM" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HOLIDAY_CODE" class="control-label"></label>
+                <input asp-for="HOLIDAY_CODE" class="form-control" />
+                <span asp-validation-for="HOLIDAY_CODE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HOLIDAY_YEAR" class="control-label"></label>
+                <input asp-for="HOLIDAY_YEAR" class="form-control" />
+                <span asp-validation-for="HOLIDAY_YEAR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FLAT_CODE" class="control-label"></label>
+                <input asp-for="FLAT_CODE" class="form-control" />
+                <span asp-validation-for="FLAT_CODE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WEEK_NO" class="control-label"></label>
+                <input asp-for="WEEK_NO" class="form-control" />
+                <span asp-validation-for="WEEK_NO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FLAT_VALUE" class="control-label"></label>
+                <input asp-for="FLAT_VALUE" class="form-control" />
+                <span asp-validation-for="FLAT_VALUE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="INSURE_VALUE" class="control-label"></label>
+                <input asp-for="INSURE_VALUE" class="form-control" />
+                <span asp-validation-for="INSURE_VALUE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RECIEPT_VALUE" class="control-label"></label>
+                <input asp-for="RECIEPT_VALUE" class="form-control" />
+                <span asp-validation-for="RECIEPT_VALUE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CANCEL" class="control-label"></label>
+                <input asp-for="CANCEL" class="form-control" />
+                <span asp-validation-for="CANCEL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DISCOUNT" class="control-label"></label>
+                <input asp-for="DISCOUNT" class="form-control" />
+                <span asp-validation-for="DISCOUNT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="F_STAMP" class="control-label"></label>
+                <input asp-for="F_STAMP" class="form-control" />
+                <span asp-validation-for="F_STAMP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RES_PK" class="control-label"></label>
+                <input asp-for="RES_PK" class="form-control" />
+                <span asp-validation-for="RES_PK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,49 @@
+﻿@model ESSPMemberService.V_T_DIFFMEMBER
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>V_T_DIFFMEMBER</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_YEAR)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_YEAR)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DATE_DIFF)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DATE_DIFF)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VALUE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VALUE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NOTES)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NOTES)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.F_ISPAY_PRCENT)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.F_ISPAY_PRCENT)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.F_CODE">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,98 @@
+﻿@model ESSPMemberService.Models.Tables.T_PAYMENT_MAIN
+
+@{
+    ViewData["Title"] = "Create Bank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>تسجيل جديد</h1>
+
+<h4>الدفع البنكى</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SaveBank" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
+           
+            <div class="form-group">
+                <label asp-for="F_PENALTY_VALUE" class="control-label">مبلغ الغرامة</label>
+                <input asp-for="F_PENALTY_VALUE" class="form-control" readonly />
+                <span asp-validation-for="F_PENALTY_VALUE" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="F_VALUE" class="control-label"></label>
+                <input asp-for="F_VALUE" class="form-control" readonly />
+                <span asp-validation-for="F_VALUE" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="F_TOTAL_VALUE" class="control-label"></label>
+                <input asp-for="F_TOTAL_VALUE" class="form-control" readonly />
+                <span asp-validation-for="F_TOTAL_VALUE" class="text-danger"></span>
+            </div>            
+          
+            <!-- Payment Methods -->
+            <div class="form-group col-md-3 row">
+                <label for="PaymentMethods" class="col-sm-4 col-form-label text-right">طرق الدفع</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="PaymentMethods" name="PaymentMethods" asp-items="ViewBag.PaymentMethods"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="F_CARD" class="control-label"></label>
+                <input asp-for="F_CARD" class="form-control" readonly />
+                <span asp-validation-for="F_CARD" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="payImage">تحميل صوره ايصال الدفع</label>
+                <input type="file" name="payImage" id="payImage" class="form-control" />
+                <span id="payImageError" class="text-danger" style="display:none;">يرجى تحميل صورة إيصال الدفع</span>
+            </div>
+
+          @*   <div>
+                <h3>Model Data</h3>
+                <!-- Render your model data here -->              
+
+                <h3>Selected Values</h3>
+                <ul>
+                    @foreach (var (year, value) in Model.SelectedValues)
+                    {
+                        <li>Year: @year, Value: @value</li>
+                    }
+                </ul>
+            </div>
+         *@
+
+            <div class="form-group">
+                <input type="submit" value="تسجيل" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">رجوع</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $('form').on('submit', function (e) {
+                var payImage = $('#payImage').val();
+
+                // If no file is selected, prevent submission and show error
+                if (!payImage) {
+                    e.preventDefault();
+                    $('#payImageError').show(); // Show error message
+                } else {
+                    $('#payImageError').hide(); // Hide error if file is selected
+                }
+            });
+        });
+    </script>
+}
