@@ -40,8 +40,9 @@ namespace ESSPMemberService.Controllers
                 return NotFound();
             }
 
-            var t_New = await _context.T_NEWS
-                .FirstOrDefaultAsync(m => m.F_ID == id);
+            var t_New = _context.T_NEWS
+                .Where(m => m.F_ID == id).ToList().FirstOrDefault();
+
             if (t_New == null)
             {
                 return NotFound();
