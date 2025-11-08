@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-ESSPMemberService-3d7b37f1-9c07-484e-888d-d726cf2d1b61</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+	  <Content Remove="..\wwwroot\assets\css\Login.css" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\DiffMemController.cs" />
+    <Compile Remove="Controllers\MemDesController.cs" />
+    <Compile Remove="Controllers\MemDesfController.cs" />
+    <Compile Remove="Models\Tables\T_News.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Home\GooglereCAPTCHA.cshtml" />
+    <Content Remove="Views\PAYMENT_BANK\SendMemCardNew.cshtml" />
+	<Content Remove="assets\css\main.css" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="migration_script.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Captcha" Version="4.4.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.50" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.1" />
+    <PackageReference Include="reCAPTCHA.AspNetCore" Version="3.0.10" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+	
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="wwwroot\assets\img\news\" />
+    <Folder Include="wwwroot\assets\scss\" />
+    <Folder Include="wwwroot\css\themes\dark\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Models\Tables\T_News.cs" />
+    <None Include="Views\Home\GooglereCAPTCHA.cshtml" />
+    <None Include="wwwroot\css\custom-theme.css" />
+  </ItemGroup>
+
+</Project>
