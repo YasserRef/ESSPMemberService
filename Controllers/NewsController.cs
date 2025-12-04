@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ESSPMemberService.Data;
+﻿using ESSPMemberService.Data;
 using ESSPMemberService.Models.Tables;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Oracle.ManagedDataAccess.Client;
 
 namespace ESSPMemberService.Controllers
 {
@@ -30,6 +31,13 @@ namespace ESSPMemberService.Controllers
         public async Task<IActionResult> AllNews()
         {
             return View(await _context.T_NEWS.Where(e => e.F_ACTIVE == 1).ToListAsync());
+        }
+
+        public async Task<IActionResult> Show()
+        {
+            return View(await _context.T_NEWS
+               // .Where(e => e.F_ACTIVE == 1)
+                .ToListAsync());
         }
 
         // GET: T_NEWS/Details/5
@@ -62,15 +70,25 @@ namespace ESSPMemberService.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE")] T_NEWS t_New)
+        public async Task<IActionResult> Create([Bind("F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE")] T_NEWS model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(t_New);
+                var sql = "INSERT INTO T_PAYMENT_MAIN (F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE)";
+
+                var entity = await _context.Database.ExecuteSqlRawAsync(sql,
+                    new OracleParameter("p0", model.F_ID),
+                    new OracleParameter("p1", model.F_TITLE),
+                    new OracleParameter("p2", model.F_CONTENT),
+                    new OracleParameter("p3", model.F_IMAGE_URL),
+                    new OracleParameter("p4", model.F_CREATED_DATE),
+                    new OracleParameter("p5", model.F_ACTIVE)
+                    );
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(t_New);
+            return View(model);
         }
 
         // GET: T_NEWS/Edit/5
@@ -81,7 +99,7 @@ namespace ESSPMemberService.Controllers
                 return NotFound();
             }
 
-            var t_New = await _context.T_NEWS.FindAsync(id);
+            var t_New = _context.T_NEWS.Where(e => e.F_ID == id).ToList().FirstOrDefault();
             if (t_New == null)
             {
                 return NotFound();
@@ -94,9 +112,9 @@ namespace ESSPMemberService.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE")] T_NEWS t_New)
+        public async Task<IActionResult> Edit(int id, [Bind("F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE")] T_NEWS model)
         {
-            if (id != t_New.F_ID)
+            if (id != model.F_ID)
             {
                 return NotFound();
             }
@@ -105,12 +123,22 @@ namespace ESSPMemberService.Controllers
             {
                 try
                 {
-                    _context.Update(t_New);
+                    //, F_IMAGE_URL = :p4, F_CREATED_DATE = :p5
+                    var sql = @" UPDATE T_NEWS SET F_TITLE = :p1, F_CONTENT = :p2, F_ACTIVE = :p3 WHERE F_ID = :p0";
+
+                    await _context.Database.ExecuteSqlRawAsync(sql,
+                        new OracleParameter("p0", model.F_ID),
+                        new OracleParameter("p1", model.F_TITLE),
+                        new OracleParameter("p2", model.F_CONTENT),
+                       // new OracleParameter("p4", model.F_IMAGE_URL),
+                       // new OracleParameter("p5", model.F_CREATED_DATE),
+                        new OracleParameter("p3", model.F_ACTIVE));
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!T_NewExists(t_New.F_ID))
+                    if (!T_NewExists(model.F_ID))
                     {
                         return NotFound();
                     }
@@ -119,9 +147,9 @@ namespace ESSPMemberService.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Show));
             }
-            return View(t_New);
+            return View(model);
         }
 
         // GET: T_NEWS/Delete/5

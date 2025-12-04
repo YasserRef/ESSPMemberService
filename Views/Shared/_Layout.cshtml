@@ -125,6 +125,13 @@
                         else if (userId > 0)
                         {
                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> الاخبار</a>
+                                <ul class="dropdown-menu">                                   
+                                    <li><a class="dropdown-item" asp-controller="News" asp-action="Show">عرض الاخبار</a></li>
+                                     <li><a class="dropdown-item" asp-controller="News" asp-action="Create">تسجيل خبر</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">الشكاوى والطلبات</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="CreateRequest">تسجيل شكوى</a></li>

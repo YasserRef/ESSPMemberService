@@ -1,34 +1,50 @@
 ﻿@model ESSPMemberService.Models.Tables.T_NEWS
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>اضافة خبر جديد</h1>
 
-<h4>T_NEWS</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="F_ID" />
+
+             <div class="form-group">
+                <label asp-for="F_NAME" class="control-label"></label>
+                <input asp-for="F_NAME" class="form-control" />
+                <span asp-validation-for="F_NAME" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="F_TITLE" class="control-label"></label>
                 <input asp-for="F_TITLE" class="form-control" />
                 <span asp-validation-for="F_TITLE" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <!-- Content -->
+            <div class="form-group mb-3">
                 <label asp-for="F_CONTENT" class="control-label"></label>
-                <input asp-for="F_CONTENT" class="form-control" />
+                <textarea asp-for="F_CONTENT" class="form-control"></textarea>
                 <span asp-validation-for="F_CONTENT" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+           @*  <div class="form-group">
                 <label asp-for="F_IMAGE_URL" class="control-label"></label>
                 <input asp-for="F_IMAGE_URL" class="form-control" />
                 <span asp-validation-for="F_IMAGE_URL" class="text-danger"></span>
             </div>
+ *@
+             <div class="form-group">
+                <label for="newImage">تحميل صوره الخبر</label>
+                <input type="file" name="newImage" id="newImage" class="form-control" />
+                <span id="newImageError" class="text-danger" style="display:none;">يرجى تحميل صورة الخبر</span>
+            </div>
+
+
             <div class="form-group">
                 <label asp-for="F_CREATED_DATE" class="control-label"></label>
                 <input asp-for="F_CREATED_DATE" class="form-control" />
@@ -36,17 +52,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="F_ACTIVE" class="control-label"></label>
-                <input asp-for="F_ACTIVE" class="form-control" />
+                <select asp-for="F_ACTIVE" class="form-control">
+                    <option value="1">نشط</option>
+                    <option value="0">غير نشط</option>
+                </select>
                 <span asp-validation-for="F_ACTIVE" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="حفظ" class="btn btn-primary" />
             </div>
+
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">الرجوع الى الاخبار</a>
 </div>
 

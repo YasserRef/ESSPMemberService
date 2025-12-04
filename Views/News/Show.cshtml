@@ -5,11 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>الاخبار</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"> اضافة جديد</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -20,7 +21,7 @@
                 @Html.DisplayNameFor(model => model.F_CONTENT)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.F_IMAGE_URL)
+                @Html.DisplayNameFor(model => model.F_NAME)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.F_CREATED_DATE)
@@ -32,6 +33,7 @@
         </tr>
     </thead>
     <tbody>
+
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -41,18 +43,21 @@
                 @Html.DisplayFor(modelItem => item.F_CONTENT)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.F_IMAGE_URL)
+                    @Html.DisplayFor(modelItem => item.F_NAME)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.F_CREATED_DATE)
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.F_ACTIVE)
+                <input type="checkbox" class="form-check-input" disabled @(item.F_ACTIVE == 1 ? "checked" : "") />
             </td>
+
             <td>
-                <a asp-action="Edit" asp-route-id="@item.F_ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.F_ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.F_ID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.F_ID">تعديل</a> |
+                <a asp-action="Details" asp-route-id="@item.F_ID">تفاصيل</a>
+               @*  | <a asp-action="Delete" asp-route-id="@item.F_ID">تغير الحالة</a> *@
             </td>
         </tr>
 }

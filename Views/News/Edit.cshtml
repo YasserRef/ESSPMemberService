@@ -1,0 +1,61 @@
+﻿@model ESSPMemberService.Models.Tables.T_NEWS
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>تعديل الخبر</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="F_ID" />
+
+            <!-- Title -->
+            <div class="form-group mb-3">
+                <label asp-for="F_TITLE" class="control-label"></label>
+                <input asp-for="F_TITLE" class="form-control" />
+                <span asp-validation-for="F_TITLE" class="text-danger"></span>
+            </div>
+
+            <!-- Content -->
+            <div class="form-group mb-3">
+                <label asp-for="F_CONTENT" class="control-label"></label>
+                <textarea asp-for="F_CONTENT" class="form-control"></textarea>
+                <span asp-validation-for="F_CONTENT" class="text-danger"></span>
+            </div>
+
+            <!-- Image URL -->
+           @*  <div class="form-group mb-3">
+                <label asp-for="F_IMAGE_URL" class="control-label"></label>
+                <input asp-for="F_IMAGE_URL" class="form-control" />
+                <span asp-validation-for="F_IMAGE_URL" class="text-danger"></span>
+            </div> *@
+
+            <!-- Created Date -->
+           @*  <div class="form-group mb-3">
+                <label asp-for="F_CREATED_DATE" class="control-label"></label>
+                <input asp-for="F_CREATED_DATE" type="datetime-local" class="form-control" />
+                <span asp-validation-for="F_CREATED_DATE" class="text-danger"></span>
+            </div> *@
+
+            <!-- Active (Checkbox) -->
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="F_ACTIVE" value="1" @(Model.F_ACTIVE == 1 ? "checked" : "") />
+                <input type="hidden" name="F_ACTIVE" value="0" />
+                <label class="form-check-label">نشط</label>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">حفظ</button>
+                <a asp-action="show" class="btn btn-secondary">الرجوع الى الاخبار</a>
+            </div>
+        </form>
+    </div>
+</div>
