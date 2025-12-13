@@ -70,11 +70,47 @@ namespace ESSPMemberService.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE")] T_NEWS model)
+        public async Task<IActionResult> Create(T_NEWS model, IFormFile newImage)
         {
+            model.F_CREATED_DATE = DateTime.Now;
+            if (newImage != null)
+            {
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+                var extension = Path.GetExtension(newImage.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError("", "نوع الصورة غير مدعوم");
+                    return View(model);
+                }
+
+                if (newImage.Length > 2 * 1024 * 1024)
+                {
+                    ModelState.AddModelError("", "حجم الصورة يجب ألا يزيد عن 2 ميجا");
+                    return View(model);
+                }
+            }
+
+            // Save Image
+            var folderPath = Path.Combine("wwwroot","assets","img","news");
+
+            Directory.CreateDirectory(folderPath);           
+
             if (ModelState.IsValid)
             {
-                var sql = "INSERT INTO T_PAYMENT_MAIN (F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE)";
+                model.F_ID = await _context.T_NEWS.MaxAsync(e => e.F_ID) + 1;
+
+                var fileName = $"{model.F_ID}_{DateTime.Now:yyyy}_{DateTime.Now:MM}_{DateTime.Now:dd}{Path.GetExtension(newImage.FileName)}";
+                var fullPath = Path.Combine(Directory.GetCurrentDirectory(), folderPath, fileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await newImage.CopyToAsync(stream);
+                }
+
+                model.F_IMAGE_URL = $"/assets/img/news/{fileName}";
+
+                var sql = "INSERT INTO T_NEWS (F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE) VALUES (:p0,:p1,:p2,:p3,:p4,:p5)";
 
                 var entity = await _context.Database.ExecuteSqlRawAsync(sql,
                     new OracleParameter("p0", model.F_ID),
@@ -112,7 +148,7 @@ namespace ESSPMemberService.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE")] T_NEWS model)
+        public async Task<IActionResult> EditOld(int id, [Bind("F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE")] T_NEWS model)
         {
             if (id != model.F_ID)
             {
@@ -151,6 +187,73 @@ namespace ESSPMemberService.Controllers
             }
             return View(model);
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, T_NEWS model, IFormFile newImage)
+        {
+            if (id != model.F_ID)
+                return NotFound();
+
+            ModelState.Remove("newImage");
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var news = await _context.T_NEWS.FindAsync(id);
+            if (news == null)
+                return NotFound();
+
+            // تحديث الحقول
+            news.F_NAME = model.F_NAME;
+            news.F_TITLE = model.F_TITLE;
+            news.F_CONTENT = model.F_CONTENT;
+            news.F_ACTIVE = model.F_ACTIVE;
+
+            // في حال تم رفع صورة جديدة
+            if (newImage != null && newImage.Length > 0)
+            {
+                var ext = Path.GetExtension(newImage.FileName).ToLower();
+                var allowed = new[] { ".jpg", ".jpeg", ".png" };
+
+                if (!allowed.Contains(ext))
+                {
+                    ModelState.AddModelError("", "نوع الصورة غير مدعوم");
+                    return View(model);
+                }
+
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","assets","img","news");
+
+                Directory.CreateDirectory(folderPath);
+               
+                var fileName = $"{model.F_ID}_{DateTime.Now:yyyy}_{DateTime.Now:MM}_{DateTime.Now:dd}{ext}";
+                var fullPath = Path.Combine(folderPath, fileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await newImage.CopyToAsync(stream);
+                }
+
+                news.F_IMAGE_URL = $"/assets/img/news/{fileName}";
+            }
+
+            var sql = @" UPDATE T_NEWS SET F_TITLE = :p1, F_CONTENT = :p2, F_ACTIVE = :p3, F_IMAGE_URL = :p4 WHERE F_ID = :p0";
+
+            await _context.Database.ExecuteSqlRawAsync(sql,
+                new OracleParameter("p0", model.F_ID),
+                new OracleParameter("p1", model.F_TITLE),
+                new OracleParameter("p2", model.F_CONTENT),              
+                new OracleParameter("p3", model.F_ACTIVE),
+                new OracleParameter("p4", model.F_IMAGE_URL)
+                // new OracleParameter("p5", model.F_CREATED_DATE),
+                );
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: T_NEWS/Delete/5
         public async Task<IActionResult> Delete(int? id)

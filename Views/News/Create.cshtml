@@ -10,7 +10,8 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
              <div class="form-group">
@@ -37,19 +38,14 @@
                 <input asp-for="F_IMAGE_URL" class="form-control" />
                 <span asp-validation-for="F_IMAGE_URL" class="text-danger"></span>
             </div>
- *@
              <div class="form-group">
-                <label for="newImage">تحميل صوره الخبر</label>
-                <input type="file" name="newImage" id="newImage" class="form-control" />
-                <span id="newImageError" class="text-danger" style="display:none;">يرجى تحميل صورة الخبر</span>
-            </div>
-
-
-            <div class="form-group">
                 <label asp-for="F_CREATED_DATE" class="control-label"></label>
                 <input asp-for="F_CREATED_DATE" class="form-control" />
                 <span asp-validation-for="F_CREATED_DATE" class="text-danger"></span>
             </div>
+           *@
+           
+           
             <div class="form-group">
                 <label asp-for="F_ACTIVE" class="control-label"></label>
                 <select asp-for="F_ACTIVE" class="form-control">
@@ -58,6 +54,16 @@
                 </select>
                 <span asp-validation-for="F_ACTIVE" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label for="newImage">تحميل صوره الخبر</label>
+                <input type="file" name="newImage" id="newImage" class="form-control" accept="image/*" />
+                <span id="newImageError" class="text-danger" style="display:none;">يرجى تحميل صورة الخبر</span>
+            </div>
+
+            <img id="imagePreview" src="#" alt="معاينة الصورة"
+                 style="display:none; max-width:100%; margin-top:10px; border:1px solid #ccc;" />
+
 
             <div class="form-group">
                 <input type="submit" value="حفظ" class="btn btn-primary" />
@@ -71,3 +77,43 @@
     <a asp-action="Index">الرجوع الى الاخبار</a>
 </div>
 
+@section Scripts {
+    <script>
+        document.getElementById("newImage").addEventListener("change", function () {
+            const file = this.files[0];
+            const preview = document.getElementById("imagePreview");
+            const error = document.getElementById("newImageError");
+
+            error.style.display = "none";
+            preview.style.display = "none";
+
+            if (!file) return;
+
+            // التحقق من نوع الملف
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+            if (!allowedTypes.includes(file.type)) {
+                error.innerText = "نوع الصورة غير مدعوم (jpg, png فقط)";
+                error.style.display = "block";
+                this.value = "";
+                return;
+            }
+
+            // التحقق من الحجم (2MB)
+            const maxSize = 2 * 1024 * 1024;
+            if (file.size > maxSize) {
+                error.innerText = "حجم الصورة يجب ألا يزيد عن 2 ميجا";
+                error.style.display = "block";
+                this.value = "";
+                return;
+            }
+
+            // عرض المعاينة
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+}
