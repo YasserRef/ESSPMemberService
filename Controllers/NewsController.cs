@@ -1,4 +1,5 @@
 ﻿using ESSPMemberService.Data;
+using ESSPMemberService.Helper;
 using ESSPMemberService.Models.Tables;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,14 +31,44 @@ namespace ESSPMemberService.Controllers
 
         public async Task<IActionResult> AllNews()
         {
-            return View(await _context.T_NEWS.Where(e => e.F_ACTIVE == 1).ToListAsync());
+            return View(await _context.T_NEWS.Where(e => e.F_ACTIVE == 1)
+                 .OrderByDescending(e => e.F_CREATED_DATE).ToListAsync());
         }
 
-        public async Task<IActionResult> Show()
+        public async Task<IActionResult> Show(string title, DateTime? fromDate, DateTime? toDate)
         {
-            return View(await _context.T_NEWS
-               // .Where(e => e.F_ACTIVE == 1)
-                .ToListAsync());
+            var query = _context.T_NEWS.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                // تقسيم النص إلى كلمات
+                var words = title.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                               //  .Select(w => Arabic.NormalizeArabic(w).ToLower())
+                                 .ToArray();
+
+                foreach (var word in words)
+                {
+                    query = query.Where(x => EF.Functions.Like(x.F_TITLE, $"%{word}%"));
+                }
+
+                //query = query.Where(x =>
+                //    x.F_TITLE != null &&
+                //    words.All(word => Arabic.NormalizeArabic(x.F_TITLE).ToLower().Contains(word))
+                //);
+
+                //query = query.Where(x => x.F_TITLE != null && words.Contains(x.F_TITLE) );
+            }
+
+            if (fromDate.HasValue)
+                query = query.Where(x => x.F_CREATED_DATE >= fromDate.Value);
+
+            if (toDate.HasValue)
+                query = query.Where(x => x.F_CREATED_DATE <= toDate.Value);
+
+            // .Where(e => e.F_ACTIVE == 1)
+            var data = await query.OrderByDescending(x => x.F_CREATED_DATE).ToListAsync();
+
+            return View(data);
         }
 
         // GET: T_NEWS/Details/5
@@ -110,7 +141,7 @@ namespace ESSPMemberService.Controllers
 
                 model.F_IMAGE_URL = $"/assets/img/news/{fileName}";
 
-                var sql = "INSERT INTO T_NEWS (F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE) VALUES (:p0,:p1,:p2,:p3,:p4,:p5)";
+                var sql = "INSERT INTO T_NEWS (F_ID,F_TITLE,F_CONTENT,F_IMAGE_URL,F_CREATED_DATE,F_ACTIVE,F_NAME) VALUES (:p0,:p1,:p2,:p3,:p4,:p5,:p6)";
 
                 var entity = await _context.Database.ExecuteSqlRawAsync(sql,
                     new OracleParameter("p0", model.F_ID),
@@ -118,11 +149,12 @@ namespace ESSPMemberService.Controllers
                     new OracleParameter("p2", model.F_CONTENT),
                     new OracleParameter("p3", model.F_IMAGE_URL),
                     new OracleParameter("p4", model.F_CREATED_DATE),
-                    new OracleParameter("p5", model.F_ACTIVE)
+                    new OracleParameter("p5", model.F_ACTIVE),
+                    new OracleParameter("p6", model.F_NAME)
                     );
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Show));
             }
             return View(model);
         }
@@ -201,15 +233,15 @@ namespace ESSPMemberService.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var news = await _context.T_NEWS.FindAsync(id);
+            var news = _context.T_NEWS.Where(e => e.F_ID == id).ToList().FirstOrDefault();
             if (news == null)
                 return NotFound();
 
-            // تحديث الحقول
-            news.F_NAME = model.F_NAME;
-            news.F_TITLE = model.F_TITLE;
-            news.F_CONTENT = model.F_CONTENT;
-            news.F_ACTIVE = model.F_ACTIVE;
+            //// تحديث الحقول
+            //news.F_NAME = model.F_NAME;
+            //news.F_TITLE = model.F_TITLE;
+            //news.F_CONTENT = model.F_CONTENT;
+            //news.F_ACTIVE = model.F_ACTIVE;
 
             // في حال تم رفع صورة جديدة
             if (newImage != null && newImage.Length > 0)
@@ -235,23 +267,24 @@ namespace ESSPMemberService.Controllers
                     await newImage.CopyToAsync(stream);
                 }
 
-                news.F_IMAGE_URL = $"/assets/img/news/{fileName}";
+                model.F_IMAGE_URL = $"/assets/img/news/{fileName}";
             }
 
-            var sql = @" UPDATE T_NEWS SET F_TITLE = :p1, F_CONTENT = :p2, F_ACTIVE = :p3, F_IMAGE_URL = :p4 WHERE F_ID = :p0";
+            var sql = @" UPDATE T_NEWS SET F_TITLE = :p1, F_CONTENT = :p2, F_ACTIVE = :p3, F_IMAGE_URL = :p4, F_NAME = :p5 WHERE F_ID = :p0";
 
             await _context.Database.ExecuteSqlRawAsync(sql,
                 new OracleParameter("p0", model.F_ID),
                 new OracleParameter("p1", model.F_TITLE),
                 new OracleParameter("p2", model.F_CONTENT),              
                 new OracleParameter("p3", model.F_ACTIVE),
-                new OracleParameter("p4", model.F_IMAGE_URL)
+                new OracleParameter("p4", model.F_IMAGE_URL),
+                new OracleParameter("p5", model.F_NAME)
                 // new OracleParameter("p5", model.F_CREATED_DATE),
                 );
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Show));
         }
 
 

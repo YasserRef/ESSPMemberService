@@ -4134,6 +4134,15 @@ section.services-section {
     overflow: hidden;
 }
 
+.news-description-full {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;   
+    display: block;
+    overflow: visible;
+}
+
 .view-all-container {
     text-align: center;
     margin-top: 40px;
