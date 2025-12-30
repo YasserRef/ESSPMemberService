@@ -456,7 +456,7 @@ namespace ESSPMemberService.Controllers
                     && e.F_MEMBER == model.F_MEMBER)
                     .Select(e => e.F_ID).ToListAsync();
 
-                if (exist != null)
+                if (exist.Count > 0)
                 {
                     ModelState.AddModelError(string.Empty, "تم ادخال بيانات العضو من قبل وجارى المراجعه والتنفيذ");
                     return View("SendMemCard", model);

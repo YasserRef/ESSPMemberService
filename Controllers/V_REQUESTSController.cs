@@ -66,7 +66,10 @@ namespace ESSPMemberService.Controllers
                 requests = requests.Where(r => r.F_REQUEST_DATE >= fromDate.Value);
 
             if (toDate.HasValue)
-                requests = requests.Where(r => r.F_REQUEST_DATE <= toDate.Value);            
+            {
+                var endOfDay = toDate.Value.Date.AddDays(1).AddTicks(-1);
+                requests = requests.Where(r => r.F_REQUEST_DATE <= endOfDay);
+            }
 
             if (!string.IsNullOrEmpty(status))
             {
