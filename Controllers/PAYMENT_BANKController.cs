@@ -1038,7 +1038,12 @@ namespace ESSPMemberService.Controllers
                     data = data.Where(p => p.F_PAYMENT_METHOD_ID == PaymentMethod);
 
                 if (startDate.HasValue && endDate.HasValue)
-                    data = data.Where(p => p.F_ORDER_DATE >= startDate.Value && p.F_ORDER_DATE <= endDate.Value);
+                {
+                    var endOfDay = endDate.Value.Date.AddDays(1).AddTicks(-1);
+                    data = data.Where(p => p.F_ORDER_DATE >= startDate.Value && p.F_ORDER_DATE <= endOfDay);
+
+                }
+                    
 
                 results = await data
                         .Select(e => new PaymentMainDto
@@ -1173,7 +1178,12 @@ namespace ESSPMemberService.Controllers
                     data = data.Where(p => p.F_PAYMENT_METHOD_ID == PaymentMethod);
 
                 if (startDate.HasValue && endDate.HasValue)
-                    data = data.Where(p => p.F_ORDER_DATE >= startDate.Value && p.F_ORDER_DATE <= endDate.Value);
+                {
+                    var endOfDay = endDate.Value.Date.AddDays(1).AddTicks(-1);
+                    data = data.Where(p => p.F_ORDER_DATE >= startDate.Value && p.F_ORDER_DATE <= endOfDay);
+
+                }
+
 
                 //// Step 1: pull data into memory safely (after filtering)
                 //var query = await data

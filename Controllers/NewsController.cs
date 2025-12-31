@@ -63,7 +63,11 @@ namespace ESSPMemberService.Controllers
                 query = query.Where(x => x.F_CREATED_DATE >= fromDate.Value);
 
             if (toDate.HasValue)
-                query = query.Where(x => x.F_CREATED_DATE <= toDate.Value);
+            {
+                var endOfDay = toDate.Value.Date.AddDays(1).AddTicks(-1);
+                query = query.Where(x => x.F_CREATED_DATE <= endOfDay);
+            }
+               
 
             // .Where(e => e.F_ACTIVE == 1)
             var data = await query.OrderByDescending(x => x.F_CREATED_DATE).ToListAsync();

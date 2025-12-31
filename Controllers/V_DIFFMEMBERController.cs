@@ -69,7 +69,8 @@ namespace ESSPMemberService.Controllers
                 }
 
                 decimal total = 0;
-                Result = _context.V_T_DIFFMEMBER.Where(m => m.F_CODE == MemId).ToList();
+                Result = _context.V_T_DIFFMEMBER.Where(m => m.F_CODE == MemId)
+                    .OrderBy(e=>e.F_YEAR).ToList();
 
                 // Add teh current year
                 // F_VALUE + F_SERVICE_BOX + F_ESSP_CARD + تغمة الايصال (10 جنيه)
