@@ -44,6 +44,9 @@ namespace ESSPMemberService.Models.Tables
             this.F_ORDER_YEAR = DateTime.Now.Year;
             this.F_PENALTY_VALUE = 0;
             this.F_IS_PROCESSED = 0;
+            this.F_PAYMENT_TYPE_NO = 1;
+            this.F_PAYMENT_METHOD_ID = 1;
+
             this.PaymentMemCard = null;
         }
 
@@ -75,7 +78,8 @@ namespace ESSPMemberService.Models.Tables
 
         //[Display(Name = "اسم البنك")]
         //public string? F_BANK_NAME { get; set; }
-        [Display(Name = " رقم العملية ")]
+        // [Display(Name = " رقم العملية ")]
+        [Display(Name = " رقم حساب البنك ")]
         public string? F_CARD { get; set; }
 
         // public Blob F_PAY_IMAGE { get; set; }

@@ -411,7 +411,7 @@ namespace ESSPMemberService.Controllers
                 F_ORDER_YEAR = DateTime.Now.Year, // Set the default year to the current year
                 F_ORDER_DATE = DateTime.Now,
                 // F_BANK_NAME = "البنك الاهلي المصري – الفرع الرئيسي",
-                F_CARD = "" //"0013070556722601012"
+                F_CARD = "0013070556722601012"
             };
 
             // ============================================================
@@ -476,7 +476,9 @@ namespace ESSPMemberService.Controllers
 
                     try
                     {
-                        model.F_ORDER_NO = await _context.T_PAYMENT_MAIN.Where(e => e.F_ORDER_YEAR == model.F_ORDER_YEAR).MaxAsync(e => e.F_ORDER_NO) + 1;
+                        model.F_ORDER_NO = await _context.T_PAYMENT_MAIN
+                                           .Where(e => e.F_ORDER_YEAR == model.F_ORDER_YEAR)
+                                           .MaxAsync(e => e.F_ORDER_NO) + 1;
                     }
                     catch
                     {
@@ -1181,9 +1183,7 @@ namespace ESSPMemberService.Controllers
                 {
                     var endOfDay = endDate.Value.Date.AddDays(1).AddTicks(-1);
                     data = data.Where(p => p.F_ORDER_DATE >= startDate.Value && p.F_ORDER_DATE <= endOfDay);
-
                 }
-
 
                 //// Step 1: pull data into memory safely (after filtering)
                 //var query = await data
