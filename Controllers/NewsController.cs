@@ -1,12 +1,15 @@
 ﻿using ESSPMemberService.Data;
 using ESSPMemberService.Helper;
 using ESSPMemberService.Models.Tables;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
+using ESSPMemberService.Attributes;
 
 namespace ESSPMemberService.Controllers
 {
+    [Authorize]    
     public class NewsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -94,6 +97,7 @@ namespace ESSPMemberService.Controllers
             return View(t_New);
         }
 
+        [HasPermission("NEWS_CREATE")]
         // GET: T_NEWS/Create
         public IActionResult Create()
         {

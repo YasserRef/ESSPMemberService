@@ -4,7 +4,8 @@ namespace ESSPMemberService.Services
 {
     public interface IPermissionService
     {
-        bool HasPermission(int userId, string permissionCode);
+        bool HasPermission(int userId, string permissionCode);        List<string> GetUserPermissions(int userId);
+
     }
 
     public class PermissionService : IPermissionService
@@ -27,6 +28,15 @@ namespace ESSPMemberService.Services
             {
                 return false;
             }
+        }
+
+
+        public List<string> GetUserPermissions(int userId)
+        {
+            return _context.UserPermissions
+                .Where(up => up.F_UserId == userId)
+                .Select(up => up.F_PermissionCode)
+                .ToList();
         }
 
     }

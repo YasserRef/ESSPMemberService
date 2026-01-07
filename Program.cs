@@ -19,6 +19,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+
+// AddScoped for PermissionService
+builder.Services.AddScoped<PermissionService, PermissionService>();
+
+
+
 // Configure session
 builder.Services.AddSession(options =>
 {
@@ -27,8 +33,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// AddScoped for PermissionService
-builder.Services.AddScoped<IPermissionService, PermissionService>();
+
 
 
 

@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ESSPMemberService.Data;
+using ESSPMemberService.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-using ESSPMemberService.Data;
-using reCAPTCHA.AspNetCore;
 using Newtonsoft.Json;
-using System.Text;
+using reCAPTCHA.AspNetCore;
 using System.Security.Cryptography;
+using System.Text;
+
 
 
 namespace ESSPMemberService.Controllers
@@ -14,11 +15,14 @@ namespace ESSPMemberService.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IRecaptchaService _recaptcha;
+        private readonly IPermissionService _permissionService;
+        
 
-        public V_MEMBER_INFOController(ApplicationDbContext context, IRecaptchaService recaptcha)
+        public V_MEMBER_INFOController(ApplicationDbContext context, IRecaptchaService recaptcha, IPermissionService permissionService)
         {
             _context = context;
             _recaptcha = recaptcha;
+            _permissionService = permissionService;
         }
 
         public ActionResult Login()
@@ -189,14 +193,17 @@ namespace ESSPMemberService.Controllers
                     HttpContext.Session.SetString("UserID", Result.USER_CODE.ToString());
                     HttpContext.Session.SetString("FullName", Result.FULL_NAME.ToString());
 
-                    // Example after login
-                    var permissions = new List<string>
-                                    {
-                                        "NEWS",
-                                        "REQUEST",
-                                        "PAYMENT_REPORT"
-                                    };
+                    //// Example after login
+                    //var permissions = new List<string>
+                    //                {
+                    //                    "NEWS_VIEW",
+                    //                    "NEWS_CREATE",
+                    //                    "REQUEST_CREATE", "REQUEST_VIEW", "PAYMENT_REPORT"
+                    //                };
 
+                    //HttpContext.Session.SetString("UserPermissions", string.Join(",", permissions));
+
+                    var permissions = _permissionService.GetUserPermissions(Result.USER_CODE);
                     HttpContext.Session.SetString("UserPermissions", string.Join(",", permissions));
 
                     return RedirectToAction("Admin", "Home");

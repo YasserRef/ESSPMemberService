@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using BotDetect;
+using ESSPMemberService.Attributes;
 using ESSPMemberService.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
-using BotDetect;
 
 namespace ESSPMemberService.Controllers
 {
@@ -185,7 +186,6 @@ namespace ESSPMemberService.Controllers
 
                 //var insertedId = (int)idParam.Value;
                 return RedirectToAction(nameof(DetailsAdmin), new { id = idParam.Value });
-
             }
 
             return View(model);
@@ -193,6 +193,7 @@ namespace ESSPMemberService.Controllers
 
 
         // GET: V_REQUESTS/Create
+        [HasPermission("REQUEST_CREATE")]
         public IActionResult Create()
         {
             long MemId = 0;
