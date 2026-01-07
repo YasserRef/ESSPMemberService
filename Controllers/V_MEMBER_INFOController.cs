@@ -188,7 +188,17 @@ namespace ESSPMemberService.Controllers
                     // Store the penalty value in the session
                     HttpContext.Session.SetString("UserID", Result.USER_CODE.ToString());
                     HttpContext.Session.SetString("FullName", Result.FULL_NAME.ToString());
-              
+
+                    // Example after login
+                    var permissions = new List<string>
+                                    {
+                                        "NEWS",
+                                        "REQUEST",
+                                        "PAYMENT_REPORT"
+                                    };
+
+                    HttpContext.Session.SetString("UserPermissions", string.Join(",", permissions));
+
                     return RedirectToAction("Admin", "Home");
                 }
                 else

@@ -54,8 +54,7 @@ namespace ESSPMemberService.Data
         }
         public DbSet<V_T_TRAINING_DESCRIPTION> V_T_TRAINING_DESCRIPTION { get; set; } = default!;
         public DbSet<V_T_BRANCH_DESCRIPTION> V_T_BRANCH_DESCRIPTION { get; set; } = default!;
-        public DbSet<V_T_GOV> V_T_GOV { get; set; } = default!;
-        
+        public DbSet<V_T_GOV> V_T_GOV { get; set; } = default!;        
         public DbSet<T_PAYMENT> T_PAYMENT { get; set; } = default!;
         public DbSet<T_PAYMENT_MAIN> T_PAYMENT_MAIN { get; set; } = default!;
         public DbSet<T_PAYMENT_MEM_CARD> T_PAYMENT_MEM_CARD { get; set; } = default!;
@@ -76,6 +75,8 @@ namespace ESSPMemberService.Data
         public DbSet<V_PAYMENT_MAIN> V_PAYMENT_MAIN { get; set; } = default!;
         public DbSet<T_PAYMENT_DETAIL> T_PAYMENT_DETAIL { get; set; } = default!;        
         public DbSet<T_NEWS> T_NEWS { get; set; } = default!;
+        public DbSet<T_USERPERMISSIONS> UserPermissions { get; set; } = default!;
+        
     }
 
 }

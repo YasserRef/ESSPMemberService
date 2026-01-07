@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ESSPMemberService.Services
+@{
     var memIdString = Context.Session.GetString("MemID");
     int memId = string.IsNullOrEmpty(memIdString) ? 0 : Convert.ToInt32(memIdString);
 
@@ -8,6 +9,8 @@
 
 @removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.BodyTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
 @removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.HeadTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IPermissionService PermissionService
+
 
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
@@ -122,29 +125,83 @@
                             </li>
 
                         }
-                        else if (userId > 0)
+
+
+                        @if (userId > 0)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> الاخبار</a>
-                                <ul class="dropdown-menu">                                   
-                                    <li><a class="dropdown-item" asp-controller="News" asp-action="Show">عرض الاخبار</a></li>
-                                     <li><a class="dropdown-item" asp-controller="News" asp-action="Create">تسجيل خبر</a></li>
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">الاخبار</a>
+                                <ul class="dropdown-menu">
+
+                                    @if (PermissionService.HasPermission(userId, "NEWS_VIEW"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="News" asp-action="Show">
+                                                عرض الاخبار
+                                            </a>
+                                        </li>
+                                    }
+
+                                    @if (PermissionService.HasPermission(userId, "NEWS_CREATE"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="News" asp-action="Create">
+                                                تسجيل خبر
+                                            </a>
+                                        </li>
+                                    }
+
                                 </ul>
                             </li>
+
+
+                            @if (PermissionService.HasPermission(userId, "REQUEST_CREATE") || PermissionService.HasPermission(userId, "REQUEST_VIEW"))
+                        {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">الشكاوى والطلبات</a>
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                    الشكاوى والطلبات
+                                </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="CreateRequest">تسجيل شكوى</a></li>
-                                    <li><a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="IndexAdmin">عرض الشكاوى</a></li>
+
+                                        @if (PermissionService.HasPermission(userId, "REQUEST_CREATE"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="CreateRequest">
+                                                تسجيل شكوى
+                                            </a>
+                                        </li>
+                                    }
+
+                                    @if (PermissionService.HasPermission(userId, "REQUEST_VIEW"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="V_REQUESTS" asp-action="IndexAdmin">
+                                                عرض الشكاوى
+                                            </a>
+                                        </li>
+                                    }
+
                                 </ul>
                             </li>
+                        }
+
+                            @if (PermissionService.HasPermission(userId, "PAYMENT_REPORT"))
+                        {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown">التقارير</a>
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">التقارير</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="PAYMENT_BANK" asp-action="PaymentReport">تسجيل متاخرات الاعضاء</a></li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="PAYMENT_BANK"
+                                           asp-action="PaymentReport">
+                                            تسجيل متاخرات الاعضاء
+                                        </a>
+                                    </li>
                                     <li><a class="dropdown-item" asp-controller="PAYMENT_BANK" asp-action="SendMemCardReport">كارنية الاعضاء</a></li>
                                 </ul>
                             </li>
+                            }
+
                         }
 
                         <li class="nav-item"><a class="nav-link" asp-controller="BRANCH_DESCRIPTION" asp-action="Index">الفروع</a></li>

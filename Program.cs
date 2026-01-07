@@ -1,4 +1,5 @@
 using ESSPMemberService.Data;
+using ESSPMemberService.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using reCAPTCHA.AspNetCore;
@@ -25,6 +26,12 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// AddScoped for PermissionService
+builder.Services.AddScoped<IPermissionService, PermissionService>();
+
+
+
 
 // Add reCAPTCHA service
 builder.Services.AddRecaptcha(options =>
