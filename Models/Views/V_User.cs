@@ -24,6 +24,7 @@ namespace ESSPMemberService
         public string USER_NAME { get; set; }
         [Display(Name = "كلمة المرور ")]
         public string PASSWORD { get; set; }
+        public string NEW_PASSWORD { get; set; }
 
         [Display(Name = "الفرع")]
         public short BRANCH_NO { get; set; }

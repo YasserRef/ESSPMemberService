@@ -1,4 +1,5 @@
 ﻿using ESSPMemberService.Data;
+using ESSPMemberService.Helper;
 using ESSPMemberService.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,14 +16,16 @@ namespace ESSPMemberService.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IRecaptchaService _recaptcha;
-        private readonly IPermissionService _permissionService;
+        //private readonly IPermissionService _permissionService;
         
 
-        public V_MEMBER_INFOController(ApplicationDbContext context, IRecaptchaService recaptcha, IPermissionService permissionService)
+        public V_MEMBER_INFOController(ApplicationDbContext context, IRecaptchaService recaptcha
+           // , IPermissionService permissionService
+            )
         {
             _context = context;
             _recaptcha = recaptcha;
-            _permissionService = permissionService;
+           // _permissionService = permissionService;
         }
 
         public ActionResult Login()
@@ -180,10 +183,18 @@ namespace ESSPMemberService.Controllers
                     ViewBag.ErrorMsg = "يجب ادخال كلمة المرور";
                     return View();
                 }
-                //AppContext.SetSwitch("Switch.System.Globalization.UseNls", true);
-                int hashCode = GetFixedHashCode(password);
-                // password = password.GetHashCode().ToString();
-                var Result = _context.V_USERS.Where(m => m.USER_NAME == userName && m.PASSWORD == password).ToList().FirstOrDefault();
+               // //AppContext.SetSwitch("Switch.System.Globalization.UseNls", true);
+
+               // // Save
+               //var passwordHash = PasswordHasher.HashPassword(password);
+
+               // // Login
+               // bool isValid = PasswordHasher.VerifyPassword(password, passwordHash);
+
+                //int hashCode = GetFixedHashCode(inputPassword);
+                //inputPassword = inputPassword.GetHashCode().ToString();
+                var Result = _context.V_USERS.Where(m => m.USER_NAME == userName && m.NEW_PASSWORD == password)
+                            .ToList().FirstOrDefault();
                                
                 if (Result != null)
                 {
@@ -203,8 +214,8 @@ namespace ESSPMemberService.Controllers
 
                     //HttpContext.Session.SetString("UserPermissions", string.Join(",", permissions));
 
-                    var permissions = _permissionService.GetUserPermissions(Result.USER_CODE);
-                    HttpContext.Session.SetString("UserPermissions", string.Join(",", permissions));
+                    //var permissions = _permissionService.GetUserPermissions(Result.USER_CODE);
+                    //HttpContext.Session.SetString("UserPermissions", string.Join(",", permissions));
 
                     return RedirectToAction("Admin", "Home");
                 }

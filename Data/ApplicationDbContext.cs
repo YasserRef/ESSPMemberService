@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ESSPMemberService.Models.Tables;
 using System.Xml;
+using ESSPMemberService.Models.Views;
 
 
 namespace ESSPMemberService.Data
@@ -47,7 +48,12 @@ namespace ESSPMemberService.Data
             modelBuilder.Entity<V_SYSCODE>().HasKey(e => new { e.F_CODE, e.F_TYPE }); // Composite Key
             modelBuilder.Entity<V_SYSCODE>().ToView("V_SYSCODE");
             modelBuilder.Entity<V_PAYMENT_MAIN>().HasNoKey().ToView("V_PAYMENT_MAIN");
-            
+
+            modelBuilder.Entity<V_USER_PAGE_PERMISSIONS>().ToView("V_USER_PAGE_PERMISSIONS", "ADMIN").HasNoKey();
+
+            modelBuilder.Entity<T_USERPERMISSIONS>()
+                .HasOne(u => u.T_PAGE_PERMISSIONS)
+                .WithMany().HasForeignKey(u => u.F_PAGE_ID);
 
 
             base.OnModelCreating(modelBuilder);
@@ -75,8 +81,9 @@ namespace ESSPMemberService.Data
         public DbSet<V_PAYMENT_MAIN> V_PAYMENT_MAIN { get; set; } = default!;
         public DbSet<T_PAYMENT_DETAIL> T_PAYMENT_DETAIL { get; set; } = default!;        
         public DbSet<T_NEWS> T_NEWS { get; set; } = default!;
-        public DbSet<T_USERPERMISSIONS> UserPermissions { get; set; } = default!;
-        
+        public DbSet<V_USER_PAGE_PERMISSIONS> V_USER_PAGE_PERMISSIONS { get; set; } = default!;
+        public DbSet<T_USERPERMISSIONS> T_USERPERMISSIONS { get; set; } = default!;
+        public DbSet<T_PAGE_PERMISSIONS> T_PAGE_PERMISSIONS { get; set; } = default!;    
     }
 
 }

@@ -21,8 +21,8 @@ builder.Services.AddControllersWithViews();
 
 
 // AddScoped for PermissionService
-builder.Services.AddScoped<PermissionService, PermissionService>();
-
+builder.Services.AddScoped<PermissionService>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 
 
 // Configure session

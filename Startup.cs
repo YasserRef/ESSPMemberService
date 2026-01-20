@@ -1,4 +1,5 @@
 ﻿using ESSPMemberService.Data;
+using ESSPMemberService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,10 @@ public class Startup
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseOracle(Configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddScoped<IPermissionService, PermissionService>();
+
+
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
