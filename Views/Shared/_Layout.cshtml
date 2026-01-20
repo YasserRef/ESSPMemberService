@@ -129,34 +129,36 @@
 
                         @if (userId > 0)
                         {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">الاخبار</a>
-                                <ul class="dropdown-menu">
+                            @if (PermissionService.HasPermission(userId, "NEWS_VIEW") || PermissionService.HasPermission(userId, "NEWS_CREATE"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">الاخبار</a>
+                                    <ul class="dropdown-menu">
 
-                                    @if (PermissionService.HasPermission(userId, "NEWS_VIEW"))
-                                    {
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="News" asp-action="Show">
-                                                عرض الاخبار
-                                            </a>
-                                        </li>
-                                    }
+                                        @if (PermissionService.HasPermission(userId, "NEWS_VIEW"))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="News" asp-action="Show">
+                                                    عرض الاخبار
+                                                </a>
+                                            </li>
+                                        }
 
-                                    @if (PermissionService.HasPermission(userId, "NEWS_CREATE"))
-                                    {
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="News" asp-action="Create">
-                                                تسجيل خبر
-                                            </a>
-                                        </li>
-                                    }
+                                        @if (PermissionService.HasPermission(userId, "NEWS_CREATE"))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="News" asp-action="Create">
+                                                    تسجيل خبر
+                                                </a>
+                                            </li>
+                                        }
 
-                                </ul>
-                            </li>
-
+                                    </ul>
+                                </li>
+                            }
 
                             @if (PermissionService.HasPermission(userId, "REQUEST_CREATE") || PermissionService.HasPermission(userId, "REQUEST_VIEW"))
-                        {
+                            {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                                     الشكاوى والطلبات

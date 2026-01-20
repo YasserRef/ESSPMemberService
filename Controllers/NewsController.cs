@@ -9,7 +9,7 @@ using ESSPMemberService.Attributes;
 
 namespace ESSPMemberService.Controllers
 {
-    [Authorize]    
+    //[Authorize]    
     public class NewsController : Controller
     {
         private readonly ApplicationDbContext _context;

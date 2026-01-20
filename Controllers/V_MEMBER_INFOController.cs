@@ -194,6 +194,11 @@ namespace ESSPMemberService.Controllers
                 //int hashCode = GetFixedHashCode(inputPassword);
                 //inputPassword = inputPassword.GetHashCode().ToString();
                 var Result = _context.V_USERS.Where(m => m.USER_NAME == userName && m.NEW_PASSWORD == password)
+                    .Select(e => new
+                    {
+                        e.USER_CODE,
+                        e.FULL_NAME,                                
+                    })
                             .ToList().FirstOrDefault();
                                
                 if (Result != null)
@@ -203,6 +208,7 @@ namespace ESSPMemberService.Controllers
                     // Store the penalty value in the session
                     HttpContext.Session.SetString("UserID", Result.USER_CODE.ToString());
                     HttpContext.Session.SetString("FullName", Result.FULL_NAME.ToString());
+                    HttpContext.Session.SetString("MemName", Result.FULL_NAME.ToString());
 
                     //// Example after login
                     //var permissions = new List<string>

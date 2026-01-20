@@ -193,7 +193,7 @@ namespace ESSPMemberService.Controllers
 
 
         // GET: V_REQUESTS/Create
-        [HasPermission("REQUEST_CREATE")]
+        // [HasPermission("REQUEST_CREATE")]
         public IActionResult Create()
         {
             long MemId = 0;
