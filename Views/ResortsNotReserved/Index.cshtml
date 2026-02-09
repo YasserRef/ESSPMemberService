@@ -70,7 +70,7 @@
                     <td hidden>@item.F_FCODE</td>
                     <td>@item.HOLDAY_NAME</td>
                     <td>@item.F_FLAT_DESC</td>
-                    <td>@String.Format("{0:C}", item.F_WEEKCOST)</td>
+                    <td>@String.Format(System.Globalization.CultureInfo.GetCultureInfo("ar-EG"),"{0:C}",item.F_WEEKCOST)</td>
                     <td>@item.F_INSURCOST</td>
                     <td>@item.F_FROM</td>
                     <td>@item.F_TO</td>

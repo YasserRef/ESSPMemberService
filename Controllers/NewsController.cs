@@ -34,6 +34,8 @@ namespace ESSPMemberService.Controllers
 
         public async Task<IActionResult> AllNews()
         {
+            // Show main images 
+
             return View(await _context.T_NEWS.Where(e => e.F_ACTIVE == 1)
                  .OrderByDescending(e => e.F_CREATED_DATE).ToListAsync());
         }

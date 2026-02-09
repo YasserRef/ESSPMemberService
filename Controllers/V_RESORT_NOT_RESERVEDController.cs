@@ -64,6 +64,30 @@ namespace ESSPMemberService.Controllers
         // GET: V_RESORT_NOT_RESERVED/Details/5
         public async Task<IActionResult> Details(short? holidayId, short? weekNo, short? flatId)
         {
+            if (!holidayId.HasValue || !weekNo.HasValue || !flatId.HasValue)
+                return NotFound();
+
+            var resort =  _context.V_RESORT_NOT_RESERVED
+                .Where(m =>
+                    m.F_HCODE == holidayId &&
+                    m.F_WEEK == weekNo &&
+                    m.F_FCODE == flatId).ToList().FirstOrDefault();
+
+            if (resort == null)
+                return NotFound();
+
+            var flatPics = await _context.V_FLAT_PICS
+                .Where(m => m.F_CODE == flatId)
+                .ToListAsync();
+
+            resort.FlatPics = flatPics.Where(f => f.FLG == 1).ToList();
+            resort.FlatVideos = flatPics.Where(f => f.FLG == 2).ToList();
+
+            return View(resort);
+        }
+
+        public async Task<IActionResult> DetailsXXX(short? holidayId, short? weekNo, short? flatId)
+        {
             if (holidayId == null || weekNo == null || flatId == null)
             {
                 return NotFound();

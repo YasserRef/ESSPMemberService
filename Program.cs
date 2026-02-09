@@ -1,4 +1,5 @@
 using ESSPMemberService.Data;
+using ESSPMemberService.Models;
 using ESSPMemberService.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +35,7 @@ builder.Services.AddSession(options =>
 });
 
 
+builder.Services.Configure<HomePageOptions>(builder.Configuration.GetSection("HomePage"));
 
 
 

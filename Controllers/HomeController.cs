@@ -2,6 +2,7 @@ using ESSPMemberService.Data;
 using ESSPMemberService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 
 namespace ESSPMemberService.Controllers
@@ -9,22 +10,31 @@ namespace ESSPMemberService.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IOptions<HomePageOptions> _homePageOptions;
 
-        public HomeController(ApplicationDbContext context)
+
+        public HomeController(ApplicationDbContext context, IOptions<HomePageOptions> homePageOptions)
         {
             _context = context;
+            _homePageOptions = homePageOptions;
         }
 
         public async Task<IActionResult> Index()
         {
-            var results = _context.T_NEWS
+            var news = _context.T_NEWS
                      .Where(e => e.F_ACTIVE == 1)
                      .AsEnumerable()              // bring data to memory
                      .OrderByDescending(e => e.F_CREATED_DATE)
                      .Take(6)
                      .ToList();
 
-            return View(results);
+            var model = new HomeViewModel
+            {
+                News = news,
+                HomePage = _homePageOptions.Value
+            };
+
+            return View(model);
         }
 
         public IActionResult Admin()
