@@ -88,6 +88,30 @@
         </div>
     </section>
 
+    <section class="about-section py-5" style="background:#f0f4f8;">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- صورة على اليسار -->
+                <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+                    <img src="assets/img/Logo2.png" alt="About Image" class="img-fluid rounded shadow" />
+                </div>
+
+                <!-- نص على اليمين -->
+                <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200" style="direction: rtl; text-align: right;">
+                    <h2 class="mb-4">من نحن</h2>
+                    <p class="lead mb-3">
+                        نقابة المهن العلمية: صرح العلم والتنظيم المهني
+                    </p>
+                    <p>
+                        نقابة المهن العلمية في جمهورية مصر العربية هي الهيئة الشرعية والمهنية التي تُمثل وتُنظم عمل خريجي الكليات والمعاهد العلمية العليا، وعلى رأسها كليات العلوم. تأسست النقابة بموجب القانون رقم 80 لسنة 1969، وهي بذلك تُعد مؤسسة عريقة تهدف إلى تنظيم وضبط ممارسة المهن العلمية والارتقاء بمستوى الأعضاء وحماية حقوقهم ومصالحهم.
+                    </p>
+                    <a href="../Home/WhoWe" class="read-more-btn">اقرأ المزيد</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
     <!-- ===== News Section ===== -->
     <section class="news-section py-5">
         <div class="container">
@@ -128,6 +152,128 @@
             </div>
         </div>
     </section>
+
+    <section class="services-section">
+        <div class="container">
+            <h2 data-aos="fade-down" class="text-center">خدمات البوابة الالكترونية</h2>
+            <div class="row g-4">
+
+                @* <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+               <div class="service-box">
+                    
+                    <i class="fas fa-plus"></i>
+                    <h5><a asp-area="" asp-controller="Services" asp-action="Eshtark">اشتراك جديد</a></h5>
+                </div>
+            </div> 
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-box">
+                    <i class="fas fa-file"></i>
+                    <h5><a asp-area="" asp-controller="Services" asp-action="EstsharyDoc">شهادات الاستشاري</a></h5>
+                </div>
+            </div>
+            
+             <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="service-box">
+                    <i class="fas fa-coins"></i>
+                    <h5><a asp-area="" asp-controller="Services" asp-action="MasarifGanazaDoc">مصاريف الجنازة</a></h5>
+              </div>
+            </div>
+            
+            *@
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-box">
+                        <i class="fas fa-user"></i>
+                        <h5><a asp-area="" asp-controller="Services" asp-action="SpendDateSelfDoc">معاش الأعضاء</a></h5>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-box">
+                        <i class="fas fa-users"></i>
+                        <h5><a asp-area="" asp-controller="Services" asp-action="SpendDateDoc">معاش الورثة</a></h5>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-box">
+                        <i class="fas fa-money-bill"></i>
+                        <h5><a asp-area="" asp-controller="V_T_DIFFMEMBER" asp-action="Index">متأخرات الأعضاء</a></h5>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-box">
+                        <i class="fas fa-restroom"></i>
+                        <h5><a asp-area="" asp-controller="V_SPENDDATE" asp-action="Index">المعاشات</a></h5>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-box">
+                        <i class="fas fa-file-lines"></i>
+                        <h5><a asp-area="" asp-controller="V_REQUESTS" asp-action="Create">الشكاوى والطلبات</a></h5>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-box">
+                        <i class="fas fa-file-lines"></i>
+                        <h5><a asp-area="" asp-controller="ResortsNotReserved" asp-action="Index">المصايف</a></h5>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-box">
+                        <i class="fas fa-file-lines"></i>
+                        <h5><a asp-area="" asp-controller="TRAINING_DESCRIPTION" asp-action="Index">التدريب</a></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="branches-section py-5" style="background:#f0eff9 !important;">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-down">فروعنا</h2>
+            <div class="row g-4">
+
+                <!-- الفروع الأساسية -->
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="branch-box p-4 text-center shadow rounded">
+                        <i class="fas fa-map-marker-alt fa-3x mb-3 text-primary"></i>
+                        <h5>الجيزة</h5>
+                        <p>31 ش الانصارى- بجوار محطة مترو البحوث - الدور الثانى</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="branch-box p-4 text-center shadow rounded">
+                        <i class="fas fa-map-marker-alt fa-3x mb-3 text-primary"></i>
+                        <h5>القاهرة</h5>
+                        <p> 	اخر شارع مكرم عبيد - خلف السراج مول - مدينة نصر</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="branch-box p-4 text-center shadow rounded">
+                        <i class="fas fa-map-marker-alt fa-3x mb-3 text-primary"></i>
+                        <h5>الاسكندرية</h5>
+                        <p>شارع صفية زغلول - امام سينما مترو - محطة الرمل	</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- زر المزيد -->
+            <div class="text-center mt-4">
+                <a id="loadMoreBranches" class="btn btn-primary" asp-area="" asp-controller="BRANCH_DESCRIPTION" asp-action="Index">المزيد من الفروع</a>
+            </div>
+        </div>
+    </section>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
